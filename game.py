@@ -3,6 +3,7 @@ import config as config
 from pygame import display, image, transform, mouse
 from time import sleep
 import random
+import math
 
 clock = pygame.time.Clock()
 
@@ -11,13 +12,17 @@ display.set_caption('My 2nd PyGame')
 
 class Object():
 
-    def __init__(self, asset, x = 0, y = 0, v = 0, visible = False):
+    def __init__(self, asset, x = 0, y = 0, v = 0, vector=(0,0), visible = False):
         self.visible = visible
         self.asset = asset
         self.x = x
         self.y = y
         self.v = v
+        self.vx = 0 
+        self.vy = 0
         self.time = None
+
+        self.u_vector(v, vector)
 
     def pos(self, x, y):
         self.x = x
@@ -36,6 +41,19 @@ class Object():
     def speed(self, v):
         self.v == v
 
+    def u_vector(self, v, vector):
+        x = vector[0]
+        y = vector[1]
+        l = math.sqrt( x**2 + y**2 )
+        try:
+            self.vx = x // l
+        except ZeroDivisionError:
+            self.vx = 0
+        try:
+            self.vy = y // l
+        except ZeroDivisionError:
+            self.vy = 0
+
     def draw(self):
         if self.visible == True and self.time is not 0:
             screen.blit(self.asset,(self.x, self.y))
@@ -48,6 +66,13 @@ class Object():
 
     def hide(self):
         self.visible = False
+
+def vector(end, start=(0, 0) ):
+
+    delta_x = end[0] - start[0]
+    delta_y = end[1] - start[1]
+
+    return (delta_x, delta_y)
 
 def spawn_bogey(x, v=10):
     bogey = Object(bogey_img, x, v= v)
@@ -112,7 +137,8 @@ while running == True:
         if event.type == pygame.KEYDOWN:
             if event.key in (pygame.K_SPACE, 
                              pygame.K_ESCAPE,
-                             pygame.K_RETURN
+                             pygame.K_RETURN,
+                             pygame.K_KP_ENTER
                              ):
                 running = False
 
