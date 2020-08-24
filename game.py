@@ -55,11 +55,11 @@ class Object():
         y = vect[1]
         l = math.sqrt( x**2 + y**2 )
         try:
-            vx = x // l
+            vx = x / l
         except ZeroDivisionError:
             vx = 0
         try:
-            vy = y // l
+            vy = y / l
         except ZeroDivisionError:
             vy = 0
         self.vxy = (vx, vy)
@@ -77,22 +77,24 @@ class Object():
     def hide(self):
         self.visible = False
 
-def vector(end, start=(0, 0) ):
 
+def vector(end, start=(0, 0) ):
     delta_x = end[0] - start[0]
     delta_y = end[1] - start[1]
 
     return (delta_x, delta_y)
 
+
+# SPAWNER
+
 def spawn_bogey(x, v=10):
     bogey = Object(bogey_img, x, v= v)
     bogey.show(-1)
-    #print("bogey", v)
     return bogey
 
 def spawn_missile(vect, v=20):
     missile = Object(
-                     asset = bogey_img,
+                     asset = missile_img,
                      x = SHIP_LOCALE[0],
                      y = SHIP_LOCALE[1],
                      v = v,
@@ -118,15 +120,15 @@ croshair_img.set_colorkey((63,72,204))
 bogey_img = image.load(config.BOGEY).convert()
 bogey_img.set_colorkey((63,72,204))
 
+missile_img = image.load(config.MISSILE).convert()
+missile_img.set_colorkey((63,72,204))
+
 splash_img = image.load(config.SPLASH).convert()
 splash_img.set_colorkey((63,72,204))
 
 ship_img = image.load(config.SHIP).convert()
 ship_img = transform.scale2x(ship_img)
 ship_img.set_colorkey((63,72,204))
-
-
-#croshair_img.set_colorkey((0,0,0))
 
 
 # OBJECTS
