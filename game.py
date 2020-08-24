@@ -24,7 +24,7 @@ class Object():
 
     def draw(self, ):
         if self.visible == True and self.time is not 0:
-            screen.blit(croshair_img,(self.x, self.y))
+            screen.blit(self.asset,(self.x, self.y))
             self.time -= 1
 
     def show(self, time=None):
@@ -66,8 +66,6 @@ while running == True:
 
             croshair.pos(mouse_x - 32, mouse_y - 32)
             croshair.show(25)
-
-            # screen.blit(croshair,(mouse_x - 32, mouse_y - 32))
 
     display.update()
     clock.tick(25)
