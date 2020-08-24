@@ -5,13 +5,11 @@ from time import sleep
 import random
 import math
 
-clock = pygame.time.Clock()
+# INIT
 
 pygame.init()
+clock = pygame.time.Clock()
 display.set_caption('My 2nd PyGame')
-
-
-#####################################
 
 
 # CONFIG
@@ -139,6 +137,7 @@ def check_collision(bogeys, missiles):
     for bogey in bogeys:
         for missile in missiles:
             if missile.rect.colliderect(bogey.rect):
+
                 print("collision")
 
 
@@ -156,7 +155,7 @@ ship.show(-1)
 croshair = Object(croshair_img)
 bogeys = []
 missiles = []
-
+splashes = []
 
 # EVENTS
 SPAWNBOGEY = pygame.USEREVENT
@@ -173,12 +172,6 @@ while running == True:
     ship.draw()
     croshair.draw()
 
-
-    # EVENTS
-    check_collision(bogeys, missiles)
-
-    current_events = pygame.event.get()
-
     for bogey in bogeys:
         bogey.move_y()
         bogey.draw()
@@ -186,6 +179,14 @@ while running == True:
     for missile in missiles:
         missile.move_2d()
         missile.draw()
+
+    for splash in splashes:
+        splash.draw()
+
+
+    # EVENTS
+    current_events = pygame.event.get()
+    check_collision(bogeys, missiles)
 
     for event in current_events:
         if event.type == pygame.KEYDOWN:
