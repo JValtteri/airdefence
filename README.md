@@ -6,5 +6,5 @@ Shoot down incoming enemy aircraft
 
 Requrements: 
 - [Python3](https://www.python.org/downloads/)
-- PyGame:
+- [Pygame](https://www.pygame.org/wiki/GettingStarted):
   - ```python3 pip install pygame```
