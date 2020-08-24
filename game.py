@@ -12,7 +12,13 @@ display.set_caption('My 2nd PyGame')
 
 class Object():
 
-    def __init__(self, asset, x = 0, y = 0, v = 0, vector=(0,0), visible = False):
+    def __init__(self, asset,
+                 x = 0,
+                 y = 0,
+                 v = 0,
+                 vect = (0,0),
+                 visible = False):
+
         self.visible = visible
         self.asset = asset
         self.x = x
@@ -21,7 +27,7 @@ class Object():
         self.vxy = 0
         self.time = None
 
-        self.u_vector(v, vector)
+        self.u_vector(v, vect)
 
     def pos(self, x, y):
         self.x = x
@@ -44,9 +50,9 @@ class Object():
     def speed(self, v):
         self.v == v
 
-    def u_vector(self, v, vector):
-        x = vector[0]
-        y = vector[1]
+    def u_vector(self, v, vect):
+        x = vect[0]
+        y = vect[1]
         l = math.sqrt( x**2 + y**2 )
         try:
             vx = x // l
@@ -84,10 +90,15 @@ def spawn_bogey(x, v=10):
     #print("bogey", v)
     return bogey
 
-def spawn_missile(x, v=10):
-    missile = Object(bogey_img, SHIP_LOCALE[0], SHIP_LOCALE[1], v= v)
+def spawn_missile(vect, v=20):
+    missile = Object(
+                     asset = bogey_img,
+                     x = SHIP_LOCALE[0],
+                     y = SHIP_LOCALE[1],
+                     v = v,
+                     vect = vect)
     missile.show(-1)
-    return bogey
+    return missile
 
 
 # CONFIG
@@ -95,6 +106,7 @@ SCREEN_SIZE = config.SCREEN_SIZE
 ASSET_SIZE = config.ASSET_SIZE
 screen = display.set_mode(SCREEN_SIZE)
 SHIP_LOCALE = config.SHIP_LOCALE
+
 
 # IMAGES
 background_img = image.load(config.BACKGROUND).convert()
@@ -116,15 +128,21 @@ ship_img.set_colorkey((63,72,204))
 
 #croshair_img.set_colorkey((0,0,0))
 
+
 # OBJECTS
 croshair = Object(croshair_img)
 bogeys = []
+missiles = []
+
 
 # EVENTS
 SPAWNBOGEY = pygame.USEREVENT
 pygame.time.set_timer(SPAWNBOGEY,1500)
 
 running = True
+
+
+# GAME LOOP
 
 while running == True:
     current_events = pygame.event.get()
@@ -133,9 +151,14 @@ while running == True:
     screen.blit( ship_img, SHIP_LOCALE )
 
     croshair.draw()
+
     for bogey in bogeys:
         bogey.move_y()
         bogey.draw()
+
+    for missile in missiles:
+        missile.move_2d()
+        missile.draw()
 
     for event in current_events:
         if event.type == pygame.KEYDOWN:
@@ -151,6 +174,8 @@ while running == True:
 
         if event.type == pygame.MOUSEBUTTONDOWN:
             mouse_x, mouse_y = mouse.get_pos()
+            vect = vector( (mouse_x,mouse_y), SHIP_LOCALE )
+            missiles.append( spawn_missile(vect) )
 
             croshair.pos(mouse_x - 32, mouse_y - 32)
             croshair.show(25)
