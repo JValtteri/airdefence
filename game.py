@@ -175,6 +175,8 @@ while running == True:
 
 
     # EVENTS
+    check_collision(bogeys, missiles)
+
     current_events = pygame.event.get()
 
     for bogey in bogeys:
