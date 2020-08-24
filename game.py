@@ -135,10 +135,13 @@ def splash_it(missile, bogey):
 
 
 def check_collision(bogeys, missiles):
+    hits = 0
     for bogey in bogeys:
         for missile in missiles:
             if missile.rect.colliderect(bogey.rect) and missile.image is not splash_img:
                 splash_it(missile, bogey)
+                hits += 1
+    return hits
 
 
 def is_garbage(item):
@@ -179,6 +182,12 @@ def clip_display():
 def score_display():
     score_surface = game_font.render('Score: {}'.format(score), True, (225,225,225) )
     score_rect = score_surface.get_rect(center = (SCREEN_SIZE[0] / 2 + 200, SCREEN_SIZE[1] - 70 ) )
+    screen.blit(score_surface, score_rect)
+
+
+def debug_display():
+    score_surface = game_font.render('M: {} B:{}'.format( len(missiles), len(bogeys) ), True, (225,225,225) )
+    score_rect = score_surface.get_rect(center = (SCREEN_SIZE[0] / 2,  70 ) )
     screen.blit(score_surface, score_rect)
 
 
@@ -229,6 +238,8 @@ while running == True:
     croshair.draw()
     clip_display()
     score_display()
+    debug_display()
+
 
     for bogey in bogeys:
         bogey.move_y()
@@ -242,7 +253,8 @@ while running == True:
     # EVENTS
 
     current_events = pygame.event.get()
-    check_collision(bogeys, missiles)
+    hits = check_collision(bogeys, missiles)
+    score += hits
 
     for event in current_events:
 
