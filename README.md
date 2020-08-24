@@ -2,6 +2,8 @@
 
 2D air defence game, made in Python3 with PyGame
 
+**PRE-ALPHA** v0.0
+
 Shoot down incoming enemy aircraft
 
 Requrements: 
