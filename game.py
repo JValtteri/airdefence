@@ -143,6 +143,12 @@ def is_garbage(item):
     return item.expired == True and item.time == 0
 
 
+def refill_clip(clip):
+    if clip < 4:
+        clip += 1
+    return clip
+
+
 # SPAWNERS
 
 def spawn_bogey(x, v=10):
@@ -166,6 +172,7 @@ def spawn_missile(vect, v=20):
 croshair = Object(croshair_img)
 bogeys = []
 missiles = []
+clip = 4
 ship = Object(
              image=ship_img,
              x = SHIP_LOCALE[0],
@@ -179,6 +186,10 @@ ship.show(-1)
 # EVENTS
 SPAWNBOGEY = pygame.USEREVENT
 pygame.time.set_timer(SPAWNBOGEY,1500)
+
+REFILL = pygame.USEREVENT
+pygame.time.set_timer(REFILL,1000)
+
 
 running = True
 
@@ -227,18 +238,25 @@ while running == True:
             running = False
 
         if event.type == pygame.MOUSEBUTTONDOWN:
-            mouse_x, mouse_y = mouse.get_pos()
-            vect = vector( (mouse_x,mouse_y), SHIP_LOCALE )
-            missiles.append( spawn_missile(vect) )
+            if clip > 0:
+                clip -= 1
 
-            croshair.pos(mouse_x, mouse_y)
-            croshair.show(25)
+                mouse_x, mouse_y = mouse.get_pos()
+                vect = vector( (mouse_x,mouse_y), SHIP_LOCALE )
+                missiles.append( spawn_missile(vect) )
+
+                croshair.pos(mouse_x, mouse_y)
+                croshair.show(25)
+                print(clip)
 
         if event.type == SPAWNBOGEY:
             bogeys.append( spawn_bogey(
                                        random.randrange(SCREEN_SIZE[0]-64),
                                        random.randrange(5, 15)
                                        ))
+
+        if event.type == REFILL:
+            clip = refill_clip(clip)
 
     display.update()
     clock.tick(25)
