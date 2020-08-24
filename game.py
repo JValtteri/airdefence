@@ -77,7 +77,7 @@ class Object():
         self.move_x(self.v * self.u_vect[0])
         self.move_y(self.v * self.u_vect[1])
 
-    def speed(self, v):
+    def speed(self, v = 0):
         self.v = v
 
     def u_vector(self, v, vect):
@@ -107,7 +107,11 @@ class Object():
     def hide(self):
         self.visible = False
 
+    def splash(self, splash):
+        self.image = splash
 
+
+# Functions
 
 def vector(end, start=(0, 0) ):
     delta_x = end[0] - start[0]
@@ -122,6 +126,7 @@ def spawn_bogey(x, v=10):
     bogey.show(-1)
     return bogey
 
+
 def spawn_missile(vect, v=20):
     missile = Object(
                      image = missile_img,
@@ -133,12 +138,22 @@ def spawn_missile(vect, v=20):
     return missile
 
 
+def splash_it(missile, bogey):
+    # splashes.append(  )
+    missile.splash(splash_img)
+    missile.speed(0)
+    missile.show(20)
+
+    bogey.speed(0)
+    bogey.show(5)
+
+
 def check_collision(bogeys, missiles):
     for bogey in bogeys:
         for missile in missiles:
             if missile.rect.colliderect(bogey.rect):
-
-                print("collision")
+                splash_it(missile, bogey)
+                # print("collision")
 
 
 ship = Object(
@@ -155,7 +170,7 @@ ship.show(-1)
 croshair = Object(croshair_img)
 bogeys = []
 missiles = []
-splashes = []
+# splashes = []
 
 # EVENTS
 SPAWNBOGEY = pygame.USEREVENT
@@ -180,8 +195,8 @@ while running == True:
         missile.move_2d()
         missile.draw()
 
-    for splash in splashes:
-        splash.draw()
+    # for splash in splashes:
+    #     splash.draw()
 
 
     # EVENTS
