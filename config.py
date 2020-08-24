@@ -10,7 +10,7 @@ MISSILE = 'assets/missile.png'
 SPLASH = 'assets/splash.png'
 SHIP = 'assets/ship.png'
 
-SHIP_LOCALE = ( SCREEN_SIZE[0] / 2 - ASSET_SIZE[0], SCREEN_SIZE[1] - 200 )
+SHIP_LOCALE = ( SCREEN_SIZE[0] / 2, SCREEN_SIZE[1] - 100 )
 
 # NUM_TITLES_SIDE = 4
 # NUM_TITLES_TOTAL = 16

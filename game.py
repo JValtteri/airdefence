@@ -12,7 +12,7 @@ display.set_caption('My 2nd PyGame')
 
 class Object():
 
-    def __init__(self, asset,
+    def __init__(self, image,
                  x = 0,
                  y = 0,
                  v = 0,
@@ -20,32 +20,32 @@ class Object():
                  visible = False):
 
         self.visible = visible
-        self.asset = asset
-        self.x = x
-        self.y = y
+        self.image = image
+        self.rect = image.get_rect(center = (x, y))
         self.v = v
-        self.vxy = 0
+        self.u_vect = 0
         self.time = None
 
         self.u_vector(v, vect)
 
     def pos(self, x, y):
-        self.x = x
-        self.y = y
+        self.rect.centerx = x
+        self.rect.centery = y
 
     def move_x(self, delta = None):
         if delta == None:
             delta = self.v
-        self.x += delta
+        # self.x += delta
+        self.rect.centerx += delta
 
     def move_y(self, delta = None):
         if delta == None:
             delta = self.v
-        self.y += delta
+        self.rect.centery += delta
 
     def move_2d(self):
-        self.move_x(self.v * self.vxy[0])
-        self.move_y(self.v * self.vxy[1])
+        self.move_x(self.v * self.u_vect[0])
+        self.move_y(self.v * self.u_vect[1])
 
     def speed(self, v):
         self.v == v
@@ -62,11 +62,11 @@ class Object():
             vy = y / l
         except ZeroDivisionError:
             vy = 0
-        self.vxy = (vx, vy)
+        self.u_vect = (vx, vy)
 
     def draw(self):
         if self.visible == True and self.time is not 0:
-            screen.blit(self.asset,(self.x, self.y))
+            screen.blit(self.image,(self.rect))
             if self.time > 0:
                 self.time -= 1
 
@@ -94,7 +94,7 @@ def spawn_bogey(x, v=10):
 
 def spawn_missile(vect, v=20):
     missile = Object(
-                     asset = missile_img,
+                     image = missile_img,
                      x = SHIP_LOCALE[0],
                      y = SHIP_LOCALE[1],
                      v = v,
@@ -129,6 +129,7 @@ splash_img.set_colorkey((63,72,204))
 ship_img = image.load(config.SHIP).convert()
 ship_img = transform.scale2x(ship_img)
 ship_img.set_colorkey((63,72,204))
+ship_rect = ship_img.get_rect(center = (SHIP_LOCALE))
 
 
 # OBJECTS
@@ -150,7 +151,7 @@ while running == True:
     current_events = pygame.event.get()
 
     screen.blit( background_img, (0,0) )
-    screen.blit( ship_img, SHIP_LOCALE )
+    screen.blit( ship_img, ship_rect )
 
     croshair.draw()
 
@@ -179,7 +180,7 @@ while running == True:
             vect = vector( (mouse_x,mouse_y), SHIP_LOCALE )
             missiles.append( spawn_missile(vect) )
 
-            croshair.pos(mouse_x - 32, mouse_y - 32)
+            croshair.pos(mouse_x, mouse_y)
             croshair.show(25)
 
         if event.type == SPAWNBOGEY:
