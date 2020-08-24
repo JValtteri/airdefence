@@ -2,6 +2,7 @@
 
 # IMAGE_SIZE = 128
 SCREEN_SIZE = (1024,1024)
+ASSET_SIZE = (64, 64)
 BACKGROUND = 'assets/bg.png'
 CROSHAIR = 'assets/croshair.png'
 BOGEY = 'assets/plane-red.png'

@@ -49,7 +49,7 @@ class Object():
 def create_bogey(x, v=10):
     bogey = Object(bogey_img, x, v= v)
     bogey.show(-1)
-    print("bogey", v)
+    #print("bogey", v)
     return bogey
 
 
@@ -87,7 +87,10 @@ while running == True:
 
     for event in current_events:
         if event.type == pygame.KEYDOWN:
-            if event.key in (pygame.K_SPACE, pygame.K_ESCAPE):
+            if event.key in (pygame.K_SPACE, 
+                             pygame.K_ESCAPE,
+                             pygame.K_RETURN
+                             ):
                 running = False
 
         if event.type == pygame.QUIT:
