@@ -169,6 +169,13 @@ def spawn_missile(vect, v=20):
     missile.show(300)
     return missile
 
+
+def clip_display():
+    score_surface = game_font.render('Missiles: {}'.format(clip), True, (225,225,225) )
+    score_rect = score_surface.get_rect(center = (SCREEN_SIZE[0] / 2 - 200, SCREEN_SIZE[1] - 70 ) )
+    screen.blit(score_surface, score_rect)
+
+
 def score_display():
     score_surface = game_font.render('Score: {}'.format(score), True, (225,225,225) )
     score_rect = score_surface.get_rect(center = (SCREEN_SIZE[0] / 2 + 200, SCREEN_SIZE[1] - 70 ) )
@@ -220,6 +227,7 @@ while running == True:
     screen.blit( background_img, (0,0) )
     ship.draw()
     croshair.draw()
+    clip_display()
     score_display()
 
     for bogey in bogeys:
