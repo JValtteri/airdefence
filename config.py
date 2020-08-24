@@ -9,6 +9,7 @@ BOGEY = 'assets/plane-red.png'
 MISSILE = 'assets/missile.png'
 SPLASH = 'assets/splash.png'
 SHIP = 'assets/ship.png'
+FONT = 'assets/04B_19.TTF'
 
 SHIP_LOCALE = ( SCREEN_SIZE[0] / 2, SCREEN_SIZE[1] - 100 )
 

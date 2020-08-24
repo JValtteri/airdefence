@@ -10,6 +10,7 @@ import math
 pygame.init()
 clock = pygame.time.Clock()
 display.set_caption('My 2nd PyGame')
+game_font = pygame.font.Font(config.FONT, 40)
 
 
 # CONFIG
@@ -168,12 +169,19 @@ def spawn_missile(vect, v=20):
     missile.show(300)
     return missile
 
+def score_display():
+    score_surface = game_font.render('Score: {}'.format(score), True, (225,225,225) )
+    score_rect = score_surface.get_rect(center = (SCREEN_SIZE[0] / 2 + 200, SCREEN_SIZE[1] - 70 ) )
+    screen.blit(score_surface, score_rect)
+
 
 # OBJECTS
 croshair = Object(croshair_img)
 bogeys = []
 missiles = []
 clip = 4
+score = 0
+# lives = 3
 ship = Object(
              image=ship_img,
              x = SHIP_LOCALE[0],
@@ -212,6 +220,7 @@ while running == True:
     screen.blit( background_img, (0,0) )
     ship.draw()
     croshair.draw()
+    score_display()
 
     for bogey in bogeys:
         bogey.move_y()
