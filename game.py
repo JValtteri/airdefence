@@ -188,7 +188,7 @@ SPAWNBOGEY = pygame.USEREVENT
 pygame.time.set_timer(SPAWNBOGEY,1500)
 
 REFILL = pygame.USEREVENT
-pygame.time.set_timer(REFILL,1000)
+pygame.time.set_timer(REFILL,900)
 
 
 running = True
