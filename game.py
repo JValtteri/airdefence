@@ -65,7 +65,6 @@ class Object():
     def move_x(self, delta = None):
         if delta == None:
             delta = self.v
-        # self.x += delta
         self.rect.centerx += delta
 
     def move_y(self, delta = None):
@@ -111,13 +110,14 @@ class Object():
         self.image = splash
 
 
-# Functions
+# FUNCTIONS
 
 def vector(end, start=(0, 0) ):
     delta_x = end[0] - start[0]
     delta_y = end[1] - start[1]
 
     return (delta_x, delta_y)
+
 
 # SPAWNERS
 
@@ -139,7 +139,6 @@ def spawn_missile(vect, v=20):
 
 
 def splash_it(missile, bogey):
-    # splashes.append(  )
     missile.splash(splash_img)
     missile.speed(0)
     missile.show(20)
@@ -153,7 +152,6 @@ def check_collision(bogeys, missiles):
         for missile in missiles:
             if missile.rect.colliderect(bogey.rect):
                 splash_it(missile, bogey)
-                # print("collision")
 
 
 ship = Object(
@@ -183,6 +181,9 @@ running = True
 
 while running == True:
 
+
+    # DRAWING
+
     screen.blit( background_img, (0,0) )
     ship.draw()
     croshair.draw()
@@ -195,11 +196,9 @@ while running == True:
         missile.move_2d()
         missile.draw()
 
-    # for splash in splashes:
-    #     splash.draw()
-
 
     # EVENTS
+
     current_events = pygame.event.get()
     check_collision(bogeys, missiles)
 
