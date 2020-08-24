@@ -138,7 +138,8 @@ def spawn_missile(vect, v=20):
 def check_collision(bogeys, missiles):
     for bogey in bogeys:
         for missile in missiles:
-            if missile.rect.colliderect(bogey.rect)
+            if missile.rect.colliderect(bogey.rect):
+                print("collision")
 
 
 ship = Object(
