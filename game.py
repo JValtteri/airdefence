@@ -33,6 +33,9 @@ class Object():
             delta = self.v
         self.y += delta
 
+    def speed(self, v):
+        self.v == v
+
     def draw(self):
         if self.visible == True and self.time is not 0:
             screen.blit(self.asset,(self.x, self.y))
@@ -55,15 +58,27 @@ def create_bogey(x, v=10):
 
 # CONFIG
 SCREEN_SIZE = config.SCREEN_SIZE
+ASSET_SIZE = config.ASSET_SIZE
 screen = display.set_mode(SCREEN_SIZE)
 
 # IMAGES
-background = image.load(config.BACKGROUND).convert()
-background = transform.scale(background, SCREEN_SIZE)
+background_img = image.load(config.BACKGROUND).convert()
+background_img = transform.scale(background_img, SCREEN_SIZE)
+
 croshair_img = image.load(config.CROSHAIR).convert()
 croshair_img.set_colorkey((63,72,204))
+
 bogey_img = image.load(config.BOGEY).convert()
 bogey_img.set_colorkey((63,72,204))
+
+splash_img = image.load(config.SPLASH).convert()
+splash_img.set_colorkey((63,72,204))
+
+ship_img = image.load(config.SHIP).convert()
+ship_img = transform.scale2x(ship_img)
+ship_img.set_colorkey((63,72,204))
+
+
 #croshair_img.set_colorkey((0,0,0))
 
 # OBJECTS
@@ -79,7 +94,9 @@ running = True
 while running == True:
     current_events = pygame.event.get()
 
-    screen.blit(background,(0,0))
+    screen.blit( background_img, (0,0) )
+    screen.blit( ship_img, ( SCREEN_SIZE[0] / 2 - ASSET_SIZE[0], SCREEN_SIZE[1] - 200 ) )
+
     croshair.draw()
     for bogey in bogeys:
         bogey.move_y()
@@ -105,7 +122,7 @@ while running == True:
         if event.type == SPAWNBOGEY:
             bogeys.append( create_bogey( 
                                        random.randrange(SCREEN_SIZE[0]-64),
-                                       random.randrange(5, 20) 
+                                       random.randrange(5, 15) 
                                        ))
 
     display.update()

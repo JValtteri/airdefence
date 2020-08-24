@@ -7,6 +7,8 @@ BACKGROUND = 'assets/bg.png'
 CROSHAIR = 'assets/croshair.png'
 BOGEY = 'assets/plane-red.png'
 MISSILE = 'assets/missile.png'
+SPLASH = 'assets/splash.png'
+SHIP = 'assets/ship.png'
 
 # NUM_TITLES_SIDE = 4
 # NUM_TITLES_TOTAL = 16
