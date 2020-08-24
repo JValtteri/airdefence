@@ -55,6 +55,7 @@ class Object():
         self.v = v
         self.u_vect = 0
         self.time = None
+        self.expired = False
 
         self.u_vector(v, vect)
 
@@ -99,6 +100,7 @@ class Object():
             if self.time > 0:
                 self.time -= 1
 
+
     def show(self, time=None):
         self.time = time
         self.visible = True
@@ -117,6 +119,17 @@ def vector(end, start=(0, 0) ):
     delta_y = end[1] - start[1]
 
     return (delta_x, delta_y)
+
+
+def splash_it(missile, bogey):
+    missile.splash(splash_img)
+    missile.speed(0)
+    missile.show(20)
+    missile.expired = True
+
+    bogey.speed(0)
+    bogey.show(5)
+    bogey.expired = True
 
 
 # SPAWNERS
@@ -138,20 +151,15 @@ def spawn_missile(vect, v=20):
     return missile
 
 
-def splash_it(missile, bogey):
-    missile.splash(splash_img)
-    missile.speed(0)
-    missile.show(20)
-
-    bogey.speed(0)
-    bogey.show(5)
-
-
 def check_collision(bogeys, missiles):
     for bogey in bogeys:
         for missile in missiles:
-            if missile.rect.colliderect(bogey.rect):
+            if missile.rect.colliderect(bogey.rect) and missile.image is not splash_img:
                 splash_it(missile, bogey)
+
+
+def is_garbage(item):
+    return item.expired == True and item.time == 0
 
 
 ship = Object(
@@ -168,7 +176,7 @@ ship.show(-1)
 croshair = Object(croshair_img)
 bogeys = []
 missiles = []
-# splashes = []
+
 
 # EVENTS
 SPAWNBOGEY = pygame.USEREVENT
@@ -180,6 +188,12 @@ running = True
 # GAME LOOP
 
 while running == True:
+
+
+    # GARBAGE COLLECTION
+
+    missiles = [missile for missile in missiles if not is_garbage(missile)]
+    bogeys = [bogey for bogey in bogeys if not is_garbage(bogey)]
 
 
     # DRAWING
