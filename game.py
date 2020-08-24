@@ -129,7 +129,15 @@ splash_img.set_colorkey((63,72,204))
 ship_img = image.load(config.SHIP).convert()
 ship_img = transform.scale2x(ship_img)
 ship_img.set_colorkey((63,72,204))
+
+ship = Object(
+             image=ship_img,
+             x = SHIP_LOCALE[0],
+             y = SHIP_LOCALE[1]
+             )
+
 ship_rect = ship_img.get_rect(center = (SHIP_LOCALE))
+ship.show(-1)
 
 
 # OBJECTS
@@ -151,7 +159,8 @@ while running == True:
     current_events = pygame.event.get()
 
     screen.blit( background_img, (0,0) )
-    screen.blit( ship_img, ship_rect )
+    ship.draw()
+    # screen.blit( ship_img, ship_rect )
 
     croshair.draw()
 
