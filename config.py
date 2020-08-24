@@ -3,6 +3,7 @@
 # IMAGE_SIZE = 128
 SCREEN_SIZE = (1024,1024)
 BACKGROUND = 'assets/bg.png'
+CROSHAIR = 'assets/croshair.png'
 
 # NUM_TITLES_SIDE = 4
 # NUM_TITLES_TOTAL = 16
