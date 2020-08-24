@@ -18,8 +18,7 @@ class Object():
         self.x = x
         self.y = y
         self.v = v
-        self.vx = 0 
-        self.vy = 0
+        self.vxy = 0
         self.time = None
 
         self.u_vector(v, vector)
@@ -38,6 +37,10 @@ class Object():
             delta = self.v
         self.y += delta
 
+    def move_2d(self):
+        self.move_x(self.v * self.vxy[0])
+        self.move_y(self.v * self.vxy[1])
+
     def speed(self, v):
         self.v == v
 
@@ -46,13 +49,14 @@ class Object():
         y = vector[1]
         l = math.sqrt( x**2 + y**2 )
         try:
-            self.vx = x // l
+            vx = x // l
         except ZeroDivisionError:
-            self.vx = 0
+            vx = 0
         try:
-            self.vy = y // l
+            vy = y // l
         except ZeroDivisionError:
-            self.vy = 0
+            vy = 0
+        self.vxy = (vx, vy)
 
     def draw(self):
         if self.visible == True and self.time is not 0:
@@ -135,7 +139,7 @@ while running == True:
 
     for event in current_events:
         if event.type == pygame.KEYDOWN:
-            if event.key in (pygame.K_SPACE, 
+            if event.key in (pygame.K_SPACE,
                              pygame.K_ESCAPE,
                              pygame.K_RETURN,
                              pygame.K_KP_ENTER
@@ -152,9 +156,9 @@ while running == True:
             croshair.show(25)
 
         if event.type == SPAWNBOGEY:
-            bogeys.append( spawn_bogey( 
+            bogeys.append( spawn_bogey(
                                        random.randrange(SCREEN_SIZE[0]-64),
-                                       random.randrange(5, 15) 
+                                       random.randrange(5, 15)
                                        ))
 
     display.update()
