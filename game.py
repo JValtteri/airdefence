@@ -132,6 +132,17 @@ def splash_it(missile, bogey):
     bogey.expired = True
 
 
+def check_collision(bogeys, missiles):
+    for bogey in bogeys:
+        for missile in missiles:
+            if missile.rect.colliderect(bogey.rect) and missile.image is not splash_img:
+                splash_it(missile, bogey)
+
+
+def is_garbage(item):
+    return item.expired == True and item.time == 0
+
+
 # SPAWNERS
 
 def spawn_bogey(x, v=10):
@@ -151,17 +162,10 @@ def spawn_missile(vect, v=20):
     return missile
 
 
-def check_collision(bogeys, missiles):
-    for bogey in bogeys:
-        for missile in missiles:
-            if missile.rect.colliderect(bogey.rect) and missile.image is not splash_img:
-                splash_it(missile, bogey)
-
-
-def is_garbage(item):
-    return item.expired == True and item.time == 0
-
-
+# OBJECTS
+croshair = Object(croshair_img)
+bogeys = []
+missiles = []
 ship = Object(
              image=ship_img,
              x = SHIP_LOCALE[0],
@@ -170,12 +174,6 @@ ship = Object(
 
 ship_rect = ship_img.get_rect(center = (SHIP_LOCALE))
 ship.show(-1)
-
-
-# OBJECTS
-croshair = Object(croshair_img)
-bogeys = []
-missiles = []
 
 
 # EVENTS
