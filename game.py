@@ -49,10 +49,15 @@ class Object():
     def hide(self):
         self.visible = False
 
-def create_bogey(x, v=10):
+def spawn_bogey(x, v=10):
     bogey = Object(bogey_img, x, v= v)
     bogey.show(-1)
     #print("bogey", v)
+    return bogey
+
+def spawn_missile(x, v=10):
+    missile = Object(bogey_img, SHIP_LOCALE[0], SHIP_LOCALE[1], v= v)
+    missile.show(-1)
     return bogey
 
 
@@ -60,6 +65,7 @@ def create_bogey(x, v=10):
 SCREEN_SIZE = config.SCREEN_SIZE
 ASSET_SIZE = config.ASSET_SIZE
 screen = display.set_mode(SCREEN_SIZE)
+SHIP_LOCALE = config.SHIP_LOCALE
 
 # IMAGES
 background_img = image.load(config.BACKGROUND).convert()
@@ -95,7 +101,7 @@ while running == True:
     current_events = pygame.event.get()
 
     screen.blit( background_img, (0,0) )
-    screen.blit( ship_img, ( SCREEN_SIZE[0] / 2 - ASSET_SIZE[0], SCREEN_SIZE[1] - 200 ) )
+    screen.blit( ship_img, SHIP_LOCALE )
 
     croshair.draw()
     for bogey in bogeys:
@@ -120,7 +126,7 @@ while running == True:
             croshair.show(25)
 
         if event.type == SPAWNBOGEY:
-            bogeys.append( create_bogey( 
+            bogeys.append( spawn_bogey( 
                                        random.randrange(SCREEN_SIZE[0]-64),
                                        random.randrange(5, 15) 
                                        ))
