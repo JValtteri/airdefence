@@ -47,6 +47,7 @@ class Object():
                  y = 0,
                  v = 0,
                  vect = (0,0),
+                 expire = True,
                  visible = False):
 
         self.visible = visible
@@ -55,7 +56,7 @@ class Object():
         self.v = v
         self.u_vect = 0
         self.time = None
-        self.expired = False
+        self.expire = expire
 
         self.u_vector(v, vect)
 
@@ -125,11 +126,11 @@ def splash_it(missile, bogey):
     missile.splash(splash_img)
     missile.speed(0)
     missile.show(20)
-    missile.expired = True
+    missile.expire = True
 
     bogey.speed(0)
     bogey.show(5)
-    bogey.expired = True
+    bogey.expire = True
 
 
 def check_collision(bogeys, missiles):
@@ -140,7 +141,7 @@ def check_collision(bogeys, missiles):
 
 
 def is_garbage(item):
-    return item.expired == True and item.time == 0
+    return item.expire == True and item.time == 0
 
 
 def refill_clip(clip):
@@ -152,8 +153,8 @@ def refill_clip(clip):
 # SPAWNERS
 
 def spawn_bogey(x, v=10):
-    bogey = Object(bogey_img, x, v= v)
-    bogey.show(-1)
+    bogey = Object(bogey_img, x, v=v)
+    bogey.show(375)
     return bogey
 
 
@@ -164,7 +165,7 @@ def spawn_missile(vect, v=20):
                      y = SHIP_LOCALE[1],
                      v = v,
                      vect = vect)
-    missile.show(-1)
+    missile.show(300)
     return missile
 
 
@@ -176,7 +177,8 @@ clip = 4
 ship = Object(
              image=ship_img,
              x = SHIP_LOCALE[0],
-             y = SHIP_LOCALE[1]
+             y = SHIP_LOCALE[1],
+             expire = False
              )
 
 ship_rect = ship_img.get_rect(center = (SHIP_LOCALE))
