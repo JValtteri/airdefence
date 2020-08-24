@@ -226,6 +226,8 @@ while running == True:
     check_collision(bogeys, missiles)
 
     for event in current_events:
+
+        # KEYBOARD
         if event.type == pygame.KEYDOWN:
             if event.key in (pygame.K_SPACE,
                              pygame.K_ESCAPE,
@@ -234,9 +236,11 @@ while running == True:
                              ):
                 running = False
 
+        # APP CLOSE
         if event.type == pygame.QUIT:
             running = False
 
+        # MOUSE
         if event.type == pygame.MOUSEBUTTONDOWN:
             if clip > 0:
                 clip -= 1
@@ -247,7 +251,8 @@ while running == True:
 
                 croshair.pos(mouse_x, mouse_y)
                 croshair.show(25)
-                print(clip)
+
+        # TIMED EVENTS
 
         if event.type == SPAWNBOGEY:
             bogeys.append( spawn_bogey(
