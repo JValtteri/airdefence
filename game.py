@@ -39,9 +39,11 @@ SCREEN_SIZE = config.SCREEN_SIZE
 screen = display.set_mode(SCREEN_SIZE)
 
 # IMAGES
-background = image.load(config.BACKGROUND)
+background = image.load(config.BACKGROUND).convert()
 background = transform.scale(background, SCREEN_SIZE)
-croshair_img = image.load(config.CROSHAIR)
+croshair_img = image.load(config.CROSHAIR).convert()
+croshair_img.set_colorkey((63,72,204))
+#croshair_img.set_colorkey((0,0,0))
 
 # OBJECTS
 croshair = Object(croshair_img)
