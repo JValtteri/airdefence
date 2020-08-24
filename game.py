@@ -80,7 +80,7 @@ class Object():
         self.move_y(self.v * self.u_vect[1])
 
     def speed(self, v):
-        self.v == v
+        self.v = v
 
     def u_vector(self, v, vect):
         x = vect[0]
