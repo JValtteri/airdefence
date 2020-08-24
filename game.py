@@ -10,6 +10,38 @@ clock = pygame.time.Clock()
 pygame.init()
 display.set_caption('My 2nd PyGame')
 
+
+#####################################
+
+
+# CONFIG
+SCREEN_SIZE = config.SCREEN_SIZE
+ASSET_SIZE = config.ASSET_SIZE
+screen = display.set_mode(SCREEN_SIZE)
+SHIP_LOCALE = config.SHIP_LOCALE
+
+
+# IMAGES
+background_img = image.load(config.BACKGROUND).convert()
+background_img = transform.scale(background_img, SCREEN_SIZE)
+
+croshair_img = image.load(config.CROSHAIR).convert()
+croshair_img.set_colorkey((63,72,204))
+
+bogey_img = image.load(config.BOGEY).convert()
+bogey_img.set_colorkey((63,72,204))
+
+missile_img = image.load(config.MISSILE).convert()
+missile_img.set_colorkey((63,72,204))
+
+splash_img = image.load(config.SPLASH).convert()
+splash_img.set_colorkey((63,72,204))
+
+ship_img = image.load(config.SHIP).convert()
+ship_img = transform.scale2x(ship_img)
+ship_img.set_colorkey((63,72,204))
+
+
 class Object():
 
     def __init__(self, image,
@@ -78,14 +110,14 @@ class Object():
         self.visible = False
 
 
+
 def vector(end, start=(0, 0) ):
     delta_x = end[0] - start[0]
     delta_y = end[1] - start[1]
 
     return (delta_x, delta_y)
 
-
-# SPAWNER
+# SPAWNERS
 
 def spawn_bogey(x, v=10):
     bogey = Object(bogey_img, x, v= v)
@@ -103,32 +135,11 @@ def spawn_missile(vect, v=20):
     return missile
 
 
-# CONFIG
-SCREEN_SIZE = config.SCREEN_SIZE
-ASSET_SIZE = config.ASSET_SIZE
-screen = display.set_mode(SCREEN_SIZE)
-SHIP_LOCALE = config.SHIP_LOCALE
+def check_collision(bogeys, missiles):
+    for bogey in bogeys:
+        for missile in missiles:
+            if missile.rect.colliderect(bogey.rect)
 
-
-# IMAGES
-background_img = image.load(config.BACKGROUND).convert()
-background_img = transform.scale(background_img, SCREEN_SIZE)
-
-croshair_img = image.load(config.CROSHAIR).convert()
-croshair_img.set_colorkey((63,72,204))
-
-bogey_img = image.load(config.BOGEY).convert()
-bogey_img.set_colorkey((63,72,204))
-
-missile_img = image.load(config.MISSILE).convert()
-missile_img.set_colorkey((63,72,204))
-
-splash_img = image.load(config.SPLASH).convert()
-splash_img.set_colorkey((63,72,204))
-
-ship_img = image.load(config.SHIP).convert()
-ship_img = transform.scale2x(ship_img)
-ship_img.set_colorkey((63,72,204))
 
 ship = Object(
              image=ship_img,
@@ -156,13 +167,14 @@ running = True
 # GAME LOOP
 
 while running == True:
-    current_events = pygame.event.get()
 
     screen.blit( background_img, (0,0) )
     ship.draw()
-    # screen.blit( ship_img, ship_rect )
-
     croshair.draw()
+
+
+    # EVENTS
+    current_events = pygame.event.get()
 
     for bogey in bogeys:
         bogey.move_y()
