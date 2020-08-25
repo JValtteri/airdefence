@@ -209,7 +209,8 @@ bogeys = []
 missiles = []
 clip = 4
 score = 0
-# lives = 3
+missed = 0
+lives = 3
 ship = Object(
              image=ship_img,
              x = SHIP_LOCALE[0],
@@ -256,6 +257,10 @@ while running == True:
     for bogey in bogeys:
         bogey.move_y()
         bogey.draw()
+        if bogey.rect.centery > SCREEN_SIZE[1]:
+            missed += 1
+            bogey.show(0)
+
 
     for missile in missiles:
         missile.move_2d()
@@ -270,7 +275,7 @@ while running == True:
 
     # If enough bogeys arent shot down
     # end the game
-    if len(bogeys) > 8:
+    if missed >= lives:
         running = False
 
     for event in current_events:
@@ -345,6 +350,9 @@ while post_game:
                              pygame.K_KP_ENTER
                              ):
                 post_game = False
+
+        # if event.type == pygame.MOUSEBUTTONDOWN:
+        #     post_game = False
 
         # APP CLOSE
         if event.type == pygame.QUIT:
