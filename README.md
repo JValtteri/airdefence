@@ -2,7 +2,7 @@
 
 2D air defence game, made with *Python3* and *Pygame*
 
-**ALPHA** v0.3
+**BETA** v0.4
 
 Shoot down incoming enemy aircraft
 
@@ -17,5 +17,8 @@ Requrements:
 
 
 ### Run exe in Windows ###
-- Copy the **game.exe** from ```airdefence/dist``` to the game root folder ```airdefence```
+~~- Copy the **game.exe** from ```airdefence/dist``` to the game root folder ```airdefence```~~
 - Double-click **game.exe** to run
+
+## TO-DO ##
+- implement different resolutions
