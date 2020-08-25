@@ -127,3 +127,41 @@ class Texts():
             gameover_rect = gameover_surface.get_rect(center = (config.SCREEN_SIZE[0] / 2,  config.SCREEN_SIZE[1] / 2 + 44 * i ) )
             screen.blit(gameover_surface, gameover_rect)
 
+
+class Menutexts():
+
+    def __init__(self):
+        self.menu_font = config.get_fonts()
+
+    def draw_highscore(self, screen, highs_core):
+        highscore_surface = self.menu_font.render('Highscore: {}'.format(highs_core), True, (225,225,225) )
+        highscore_rect = highscore_surface.get_rect(center = (config.SCREEN_SIZE[0] / 2,  70 ) )
+        screen.blit(highscore_surface, highscore_rect)
+
+    def draw_res(self, screen, res):
+        res_surface = self.menu_font.render('{} x {}'.format(config.SCREEN_SIZES[res][0], config.SCREEN_SIZES[res][1]), True, (225,225,225) )
+        res_rect = res_surface.get_rect(center = (config.SCREEN_SIZE[0] / 2,  config.SCREEN_SIZE[1] / 2 - 44 ) )
+        screen.blit(res_surface, res_rect)
+        return res_rect
+
+    def draw_mode(self, screen, mode):
+        mode_surface = self.menu_font.render('{}'.format(mode), True, (225,225,225) )
+        mode_rect = mode_surface.get_rect(center = (config.SCREEN_SIZE[0] / 2,  config.SCREEN_SIZE[1] / 2 + 44 ) )
+        screen.blit(mode_surface, mode_rect)
+        return mode_rect
+
+    def draw_exit(self, screen):
+        exit_surface = self.menu_font.render('Exit', True, (225,225,225) )
+        exit_rect = exit_surface.get_rect(center = (config.SCREEN_SIZE[0] / 2 + 200, config.SCREEN_SIZE[1] - 70 ) )
+        screen.blit(exit_surface, exit_rect)
+        return exit_rect
+
+    def draw_start(self, screen):
+        start_surface = self.menu_font.render('START', True, (225,225,225) )
+        start_rect = start_surface.get_rect(center = (config.SCREEN_SIZE[0] / 2, config.SCREEN_SIZE[1] - 70 ) )
+        screen.blit(start_surface, start_rect)
+        return start_rect
+
+
+
+
