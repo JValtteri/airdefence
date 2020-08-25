@@ -191,6 +191,12 @@ def debug_display():
     screen.blit(score_surface, score_rect)
 
 
+def gameover_display():
+    gameover_surface = game_font.render('GAME OVER\nSScore: {}'.format(score), True, (225,225,225) )
+    gameover_rect = gameover_surface.get_rect(center = (SCREEN_SIZE[0] / 2,  SCREEN_SIZE[1] / 2 ) )
+    screen.blit(gameover_surface, gameover_rect)
+
+
 # OBJECTS
 croshair = Object(croshair_img)
 bogeys = []
@@ -211,9 +217,9 @@ ship.show(-1)
 
 # EVENTS
 SPAWNBOGEY = pygame.USEREVENT
-pygame.time.set_timer(SPAWNBOGEY,1500)
+pygame.time.set_timer(SPAWNBOGEY,1000)  # Start 1500
 
-REFILL = pygame.USEREVENT
+REFILL = pygame.USEREVENT + 1
 pygame.time.set_timer(REFILL,900)
 
 
@@ -256,6 +262,11 @@ while running == True:
     hits = check_collision(bogeys, missiles)
     score += hits
 
+    # If enough bogeys arent shot down
+    # end the game
+    if len(bogeys) > 8:
+        running = False
+
     for event in current_events:
 
         # KEYBOARD
@@ -296,5 +307,45 @@ while running == True:
 
     display.update()
     clock.tick(25)
+
+
+
+####
+#
+# SHOW post_game
+#
+####
+
+post_game = True
+
+while post_game:
+
+    # screen.blit( background_img, (0,0) )
+
+    clip_display()
+    score_display()
+    debug_display()
+    gameover_display()
+
+    current_events = pygame.event.get()
+    for event in current_events:
+
+        # KEYBOARD
+        if event.type == pygame.KEYDOWN:
+
+            if event.key in (pygame.K_SPACE,
+                             pygame.K_ESCAPE,
+                             pygame.K_RETURN,
+                             pygame.K_KP_ENTER
+                             ):
+                post_game = False
+
+        # APP CLOSE
+        if event.type == pygame.QUIT:
+            post_game = False
+
+
+    display.update()
+    clock.tick(5)
 
 print('Goodbye!')
