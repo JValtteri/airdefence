@@ -3,7 +3,7 @@ from pygame import display, mouse
 import game_objects
 
 def menu(screen, clock, images, high_score = 0):
-    res = 0
+    res = 2
     mode = 1
     menu_text = game_objects.Menutexts()
     in_menu = True
