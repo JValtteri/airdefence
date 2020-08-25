@@ -1,3 +1,5 @@
 __*
 *.code*
 *.vscode
+build/*
+*.spec
