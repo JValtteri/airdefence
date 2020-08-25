@@ -99,3 +99,31 @@ class Images():
         self.ship_img = transform.scale2x(self.ship_img)
         self.ship_img.set_colorkey((63,72,204))
 
+
+class Texts():
+
+    def __init__(self):
+        self.game_font = config.get_fonts()
+
+    def clip_display(self, screen, clip):
+        score_surface = self.game_font.render('Missiles: {}'.format(clip), True, (225,225,225) )
+        score_rect = score_surface.get_rect(center = (config.SCREEN_SIZE[0] / 2 - 200, config.SCREEN_SIZE[1] - 70 ) )
+        screen.blit(score_surface, score_rect)
+
+    def score_display(self, screen, score):
+        score_surface = self.game_font.render('Score: {}'.format(score), True, (225,225,225) )
+        score_rect = score_surface.get_rect(center = (config.SCREEN_SIZE[0] / 2 + 200, config.SCREEN_SIZE[1] - 70 ) )
+        screen.blit(score_surface, score_rect)
+
+    def debug_display(self, screen, missiles, bogeys):
+        score_surface = self.game_font.render('M: {} B:{}'.format( len(missiles), len(bogeys) ), True, (225,225,225) )
+        score_rect = score_surface.get_rect(center = (config.SCREEN_SIZE[0] / 2,  70 ) )
+        screen.blit(score_surface, score_rect)
+
+    def gameover_display(self, screen, score):
+        lines = ['GAME OVER', 'Score: {}'.format(score)]
+        for i in range(len(lines)):
+            gameover_surface = self.game_font.render(lines[i], True, (225,225,225) )
+            gameover_rect = gameover_surface.get_rect(center = (config.SCREEN_SIZE[0] / 2,  config.SCREEN_SIZE[1] / 2 + 44 * i ) )
+            screen.blit(gameover_surface, gameover_rect)
+

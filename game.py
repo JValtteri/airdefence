@@ -5,14 +5,15 @@ import random
 # import math
 import config
 import game_objects
-from game_objects import Images
+from game_objects import Images, Texts
 
 # INIT
 
 screen, clock = config.init_screen()
-game_font = pygame.font.Font(config.FONT, 40)
 
 images = Images()
+texts = Texts()
+
 
 # CONFIG
 SCREEN_SIZE = config.SCREEN_SIZE
@@ -79,36 +80,6 @@ def spawn_missile(vect, v=20):
     return missile
 
 
-def clip_display():
-    score_surface = game_font.render('Missiles: {}'.format(clip), True, (225,225,225) )
-    score_rect = score_surface.get_rect(center = (SCREEN_SIZE[0] / 2 - 200, SCREEN_SIZE[1] - 70 ) )
-    screen.blit(score_surface, score_rect)
-
-
-def score_display():
-    score_surface = game_font.render('Score: {}'.format(score), True, (225,225,225) )
-    score_rect = score_surface.get_rect(center = (SCREEN_SIZE[0] / 2 + 200, SCREEN_SIZE[1] - 70 ) )
-    screen.blit(score_surface, score_rect)
-
-
-def debug_display():
-    score_surface = game_font.render('M: {} B:{}'.format( len(missiles), len(bogeys) ), True, (225,225,225) )
-    score_rect = score_surface.get_rect(center = (SCREEN_SIZE[0] / 2,  70 ) )
-    screen.blit(score_surface, score_rect)
-
-
-def gameover_display():
-    # gameover_text = []
-    lines = ['GAME OVER', 'Score: {}'.format(score)]
-    for i in range(len(lines)):
-        gameover_surface = game_font.render(lines[i], True, (225,225,225) )
-        gameover_rect = gameover_surface.get_rect(center = (SCREEN_SIZE[0] / 2,  SCREEN_SIZE[1] / 2 + 44 * i ) )
-        screen.blit(gameover_surface, gameover_rect)
-
-        # gameover_text.append((gameover_surface, gameover_rect))
-
-
-
 # OBJECTS
 croshair = game_objects.Object(images.croshair_img)
 bogeys = []
@@ -157,9 +128,9 @@ while running == True:
     screen.blit( images.background_img, (0,0) )
     ship.draw(screen)
     croshair.draw(screen)
-    clip_display()
-    score_display()
-    debug_display()
+    texts.clip_display(screen, clip)
+    texts.score_display(screen, score)
+    texts.debug_display(screen, missiles, bogeys)
 
 
     for bogey in bogeys:
@@ -241,10 +212,10 @@ while post_game:
 
     # screen.blit( background_img, (0,0) )
 
-    clip_display()
-    score_display()
-    debug_display()
-    gameover_display()
+    texts.clip_display(screen, clip)
+    texts.score_display(screen, score)
+    texts.debug_display(screen, missiles, bogeys)
+    texts.gameover_display(screen, score)
 
     current_events = pygame.event.get()
     for event in current_events:
@@ -252,12 +223,7 @@ while post_game:
         # KEYBOARD
         if event.type == pygame.KEYDOWN:
 
-            if event.key in (pygame.K_SPACE,
-                             pygame.K_ESCAPE,
-                             pygame.K_RETURN,
-                             pygame.K_KP_ENTER
-                             ):
-                post_game = False
+            post_game = False
 
         # if event.type == pygame.MOUSEBUTTONDOWN:
         #     post_game = False

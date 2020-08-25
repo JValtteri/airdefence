@@ -20,3 +20,7 @@ def init_screen():
     pygame.display.set_caption('Air defence')
 
     return screen, clock
+
+def get_fonts():
+    game_font = pygame.font.Font(FONT, 40)
+    return game_font
