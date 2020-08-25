@@ -239,7 +239,9 @@ while running == True:
 
 
     # GARBAGE COLLECTION
-
+    #
+    # deletes objects that have expired:
+    # whose time has run out and expiration is enabled
     missiles = [missile for missile in missiles if not is_garbage(missile)]
     bogeys = [bogey for bogey in bogeys if not is_garbage(bogey)]
 
