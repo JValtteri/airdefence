@@ -1,6 +1,6 @@
 # airdefence
 
-2D air defence game, made in Python3 with PyGame
+2D air defence game, made with *Python3* and *Pygame*
 
 **ALPHA** v0.3
 
