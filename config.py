@@ -1,4 +1,4 @@
-# import os
+import pygame
 
 # IMAGE_SIZE = 128
 SCREEN_SIZE = (1024,1024)
@@ -13,12 +13,10 @@ FONT = 'assets/04B_19.TTF'
 
 SHIP_LOCALE = ( SCREEN_SIZE[0] / 2, SCREEN_SIZE[1] - 100 )
 
-# NUM_TITLES_SIDE = 4
-# NUM_TITLES_TOTAL = 16
-# MARGIN = 4
+def init_screen():
+    pygame.init()
+    clock = pygame.time.Clock()
+    screen = pygame.display.set_mode(SCREEN_SIZE)
+    pygame.display.set_caption('Air defence')
 
-# ASSET_DIR = 'assets'
-
-# ASSET_FILES = [x for x in os.listdir(ASSET_DIR) if x[-3:].lower() == 'png']
-
-# assert len(ASSET_FILES) == 8
+    return screen, clock

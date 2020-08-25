@@ -1,117 +1,23 @@
 import pygame
-import config as config
-from pygame import display, image, transform, mouse
-from time import sleep
+from pygame import display, mouse
+# from time import sleep
 import random
-import math
+# import math
+import config
+import game_objects
+from game_objects import Images
 
 # INIT
 
-pygame.init()
-clock = pygame.time.Clock()
-display.set_caption('My 2nd PyGame')
+screen, clock = config.init_screen()
 game_font = pygame.font.Font(config.FONT, 40)
 
+images = Images()
 
 # CONFIG
 SCREEN_SIZE = config.SCREEN_SIZE
 ASSET_SIZE = config.ASSET_SIZE
-screen = display.set_mode(SCREEN_SIZE)
 SHIP_LOCALE = config.SHIP_LOCALE
-
-
-# IMAGES
-background_img = image.load(config.BACKGROUND).convert()
-background_img = transform.scale(background_img, SCREEN_SIZE)
-
-croshair_img = image.load(config.CROSHAIR).convert()
-croshair_img.set_colorkey((63,72,204))
-
-bogey_img = image.load(config.BOGEY).convert()
-bogey_img.set_colorkey((63,72,204))
-
-missile_img = image.load(config.MISSILE).convert()
-missile_img.set_colorkey((63,72,204))
-
-splash_img = image.load(config.SPLASH).convert()
-splash_img.set_colorkey((63,72,204))
-
-ship_img = image.load(config.SHIP).convert()
-ship_img = transform.scale2x(ship_img)
-ship_img.set_colorkey((63,72,204))
-
-
-class Object():
-
-    def __init__(self, image,
-                 x = 0,
-                 y = 0,
-                 v = 0,
-                 vect = (0,0),
-                 expire = True,
-                 visible = False):
-
-        self.visible = visible
-        self.image = image
-        self.rect = image.get_rect(center = (x, y))
-        self.v = v
-        self.u_vect = 0
-        self.time = None
-        self.expire = expire
-
-        self.u_vector(v, vect)
-
-    def pos(self, x, y):
-        self.rect.centerx = x
-        self.rect.centery = y
-
-    def move_x(self, delta = None):
-        if delta == None:
-            delta = self.v
-        self.rect.centerx += delta
-
-    def move_y(self, delta = None):
-        if delta == None:
-            delta = self.v
-        self.rect.centery += delta
-
-    def move_2d(self):
-        self.move_x(self.v * self.u_vect[0])
-        self.move_y(self.v * self.u_vect[1])
-
-    def speed(self, v = 0):
-        self.v = v
-
-    def u_vector(self, v, vect):
-        x = vect[0]
-        y = vect[1]
-        l = math.sqrt( x**2 + y**2 )
-        try:
-            vx = x / l
-        except ZeroDivisionError:
-            vx = 0
-        try:
-            vy = y / l
-        except ZeroDivisionError:
-            vy = 0
-        self.u_vect = (vx, vy)
-
-    def draw(self):
-        if self.visible == True and self.time is not 0:
-            screen.blit(self.image,(self.rect))
-            if self.time > 0:
-                self.time -= 1
-
-
-    def show(self, time=None):
-        self.time = time
-        self.visible = True
-
-    def hide(self):
-        self.visible = False
-
-    def splash(self, splash):
-        self.image = splash
 
 
 # FUNCTIONS
@@ -124,7 +30,7 @@ def vector(end, start=(0, 0) ):
 
 
 def splash_it(missile, bogey):
-    missile.splash(splash_img)
+    missile.splash(images.splash_img)
     missile.speed(0)
     missile.show(20)
     missile.expire = True
@@ -138,7 +44,7 @@ def check_collision(bogeys, missiles):
     hits = 0
     for bogey in bogeys:
         for missile in missiles:
-            if missile.rect.colliderect(bogey.rect) and missile.image is not splash_img:
+            if missile.rect.colliderect(bogey.rect) and missile.image is not images.splash_img:
                 splash_it(missile, bogey)
                 hits += 1
     return hits
@@ -157,14 +63,14 @@ def refill_clip(clip):
 # SPAWNERS
 
 def spawn_bogey(x, v=10):
-    bogey = Object(bogey_img, x, v=v)
+    bogey = game_objects.Object(images.bogey_img, x, v=v)
     bogey.show(375)
     return bogey
 
 
 def spawn_missile(vect, v=20):
-    missile = Object(
-                     image = missile_img,
+    missile = game_objects.Object(
+                     image = images.missile_img,
                      x = SHIP_LOCALE[0],
                      y = SHIP_LOCALE[1],
                      v = v,
@@ -192,7 +98,7 @@ def debug_display():
 
 
 def gameover_display():
-    gameover_text = []
+    # gameover_text = []
     lines = ['GAME OVER', 'Score: {}'.format(score)]
     for i in range(len(lines)):
         gameover_surface = game_font.render(lines[i], True, (225,225,225) )
@@ -204,21 +110,21 @@ def gameover_display():
 
 
 # OBJECTS
-croshair = Object(croshair_img)
+croshair = game_objects.Object(images.croshair_img)
 bogeys = []
 missiles = []
 clip = 4
 score = 0
 missed = 0
 lives = 3
-ship = Object(
-             image=ship_img,
+ship = game_objects.Object(
+             image=images.ship_img,
              x = SHIP_LOCALE[0],
              y = SHIP_LOCALE[1],
              expire = False
              )
 
-ship_rect = ship_img.get_rect(center = (SHIP_LOCALE))
+# ship_rect = config.ship_img.get_rect(center = (SHIP_LOCALE))
 ship.show(-1)
 
 
@@ -248,9 +154,9 @@ while running == True:
 
     # DRAWING
 
-    screen.blit( background_img, (0,0) )
-    ship.draw()
-    croshair.draw()
+    screen.blit( images.background_img, (0,0) )
+    ship.draw(screen)
+    croshair.draw(screen)
     clip_display()
     score_display()
     debug_display()
@@ -258,7 +164,7 @@ while running == True:
 
     for bogey in bogeys:
         bogey.move_y()
-        bogey.draw()
+        bogey.draw(screen)
         if bogey.rect.centery > SCREEN_SIZE[1]:
             missed += 1
             bogey.show(0)
@@ -266,7 +172,7 @@ while running == True:
 
     for missile in missiles:
         missile.move_2d()
-        missile.draw()
+        missile.draw(screen)
 
 
     # EVENTS
