@@ -192,9 +192,15 @@ def debug_display():
 
 
 def gameover_display():
-    gameover_surface = game_font.render('GAME OVER\nSScore: {}'.format(score), True, (225,225,225) )
-    gameover_rect = gameover_surface.get_rect(center = (SCREEN_SIZE[0] / 2,  SCREEN_SIZE[1] / 2 ) )
-    screen.blit(gameover_surface, gameover_rect)
+    gameover_text = []
+    lines = ['GAME OVER', 'Score: {}'.format(score)]
+    for i in range(len(lines)):
+        gameover_surface = game_font.render(lines[i], True, (225,225,225) )
+        gameover_rect = gameover_surface.get_rect(center = (SCREEN_SIZE[0] / 2,  SCREEN_SIZE[1] / 2 + 44 * i ) )
+        screen.blit(gameover_surface, gameover_rect)
+
+        # gameover_text.append((gameover_surface, gameover_rect))
+
 
 
 # OBJECTS
@@ -217,10 +223,10 @@ ship.show(-1)
 
 # EVENTS
 SPAWNBOGEY = pygame.USEREVENT
-pygame.time.set_timer(SPAWNBOGEY,1000)  # Start 1500
+pygame.time.set_timer(SPAWNBOGEY,800)  # Start 1500
 
 REFILL = pygame.USEREVENT + 1
-pygame.time.set_timer(REFILL,900)
+pygame.time.set_timer(REFILL,700)
 
 
 running = True
