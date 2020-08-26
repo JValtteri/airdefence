@@ -1,30 +1,33 @@
 import pygame
 
-# IMAGE_SIZE = 128
-SCREEN_SIZES = ((600, 480),  (1024, 700),    (1024,1024),    (2048, 1340) )
-ASSET_SIZES = ( (24, 24),    (32, 32),       (64, 64),       (86, 86) )
-SCREEN_SIZE = (1024,1024)
-ASSET_SIZE = (64, 64)
-BACKGROUND = 'assets/bg.png'
-CROSHAIR = 'assets/croshair.png'
-BOGEY = 'assets/plane-red.png'
-MISSILE = 'assets/missile.png'
-SPLASH = 'assets/splash.png'
-SHIP = 'assets/ship.png'
-FONT = 'assets/04B_19.TTF'
-HIGH_SCORE = 0
+class Config():
 
-SHIP_LOCALE = ( SCREEN_SIZE[0] / 2, SCREEN_SIZE[1] - 100 )
+    FONT = 'assets/04B_19.TTF'
 
-def init_screen():
+    def __init__(self):
+
+        # self.SCREEN_SIZES = ((600, 480),  (1024, 700),    (1024,1024),    (2048, 1340) )
+        # self.ASSET_SIZES = ( (24, 24),    (32, 32),       (64, 64),       (86, 86) )
+        self.SCREEN_SIZE = (1024,1024)      # monitor_info.current_h-60
+        self.ASSET_SIZE = (64, 64)
+        self.BACKGROUND = 'assets/bg.png'
+        self.CROSHAIR = 'assets/croshair.png'
+        self.BOGEY = 'assets/plane-red.png'
+        self.MISSILE = 'assets/missile.png'
+        self.SPLASH = 'assets/splash.png'
+        self.SHIP = 'assets/ship.png'
+        self.HIGH_SCORE = 0
+        self.SHIP_LOCALE = ( self.SCREEN_SIZE[0] / 2, self.SCREEN_SIZE[1] - 100 )
+        self.GAME_FONT = None
+
+    def get_fonts(self):
+        self.GAME_FONT = pygame.font.Font(Config.FONT, 40)
+        return self.GAME_FONT
+
+def init_screen(config):
     pygame.init()
     monitor_info = pygame.display.Info()
-    clock = pygame.time.Clock()
-    screen = pygame.display.set_mode((SCREEN_SIZE[0], monitor_info.current_h-60))#, pygame.FULLSCREEN)
+    screen = pygame.display.set_mode((config.SCREEN_SIZE))#, pygame.FULLSCREEN)
     pygame.display.set_caption('Air defence')
 
-    return screen, clock, monitor_info.current_h
-
-def get_fonts():
-    game_font = pygame.font.Font(FONT, 40)
-    return game_font
+    return screen, monitor_info.current_h

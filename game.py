@@ -1,17 +1,19 @@
 import pygame
 from pygame import display, mouse
 import random
-import config
+from config import Config, init_screen
 import game_objects
 import menu
 from game_objects import Images, Texts
 
 # INIT
 
-screen, clock, screen_h = config.init_screen()
-
-images = Images()
-texts = Texts()
+# Load config
+config = Config()
+screen, screen_h = init_screen(config)
+clock = pygame.time.Clock()
+images = Images(config)
+texts = Texts(config)
 
 
 # CONFIG
@@ -115,7 +117,6 @@ def play():
 
     while running == True:
 
-
         # GARBAGE COLLECTION
         #
         # deletes objects that have expired:
@@ -128,9 +129,9 @@ def play():
         screen.blit( images.background_img, (0,0) )
         ship.draw(screen)
         croshair.draw(screen)
-        texts.clip_display(screen, clip)
-        texts.score_display(screen, score)
-        texts.debug_display(screen, missiles, bogeys)
+        texts.clip_display(screen, config, clip)
+        texts.score_display(screen, config, score)
+        texts.debug_display(screen, config, missiles, bogeys)
 
         for bogey in bogeys:
             bogey.move_y()
@@ -206,10 +207,10 @@ def play():
 
         # screen.blit( background_img, (0,0) )
 
-        texts.clip_display(screen, clip)
-        texts.score_display(screen, score)
-        texts.debug_display(screen, missiles, bogeys)
-        texts.gameover_display(screen, score)
+        texts.clip_display(screen, config, clip)
+        texts.score_display(screen, config, score)
+        texts.debug_display(screen, config, missiles, bogeys)
+        texts.gameover_display(screen, config, score)
 
         current_events = pygame.event.get()
         for event in current_events:
@@ -237,7 +238,7 @@ if __name__ == "__main__":
     high_score = 0
     mode = 1
     while mode > 0:
-        resolution, mode = menu.menu(screen, clock, images, screen_h, high_score)
+        resolution, mode = menu.menu(screen, clock, images, config, screen_h, high_score)
         if mode > 0:
             score = play()
             if score > high_score:

@@ -2,22 +2,22 @@ import pygame
 from pygame import display, mouse
 import game_objects
 
-def menu(screen, clock, images, screen_h, high_score = 0):
+def menu(screen, clock, images, config, screen_h, high_score = 0):
     res = 2
     mode = 1
-    menu_text = game_objects.Menutexts()
+    menu_text = game_objects.Menutexts(config)
     in_menu = True
 
     while in_menu:
 
         screen.blit( images.background_img, (0,0) )
 
-        menu_text.draw_highscore(screen, high_score)
+        menu_text.draw_highscore(screen, config, high_score)
 
-        res_rect = menu_text.draw_res(screen, res, screen_h)
-        mode_rect = menu_text.draw_mode(screen, mode)
-        exit_rect = menu_text.draw_exit(screen)
-        start_rect = menu_text.draw_start(screen)
+        res_rect = menu_text.draw_res(screen, config, res, screen_h)
+        # mode_rect = menu_text.draw_mode(screen, config, mode)
+        exit_rect = menu_text.draw_exit(screen, config)
+        start_rect = menu_text.draw_start(screen, config)
 
 
         # EVENTS
