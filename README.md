@@ -1,8 +1,8 @@
 # airdefence
 
-An addictive arcade-like 2D air defence game, made with *Python3* and *Pygame*
+An addictive, arcade-like, 2D air defence game, made with *Python3* and *Pygame*
 
-**BETA** v0.5
+### **BETA** v0.5 ###
 
 ## How to play ##
 
@@ -42,7 +42,7 @@ Requrements:
 
 
 ### Run exe in Windows ###
-~~- Copy the **game.exe** from ```airdefence/dist``` to the game root folder ```airdefence```~~
+- ~~Copy the **game.exe** from ```airdefence/dist``` to the game root folder ```airdefence```~~
 - Double-click **game.exe** to run
 
 **Note:** In the unlikely case that the game would **crash** or **be killed with** ***Task Manager***, 
@@ -54,5 +54,5 @@ left behind. A new folder is created each time, the new never effecting the old.
 - highlite selection
 - turn the missiles along their launch vector
 - more refactoring...
-~~- implement different resolutions~~ (basic scaling implemented)
+- ~~implement different resolutions~~ (basic scaling implemented)
 
