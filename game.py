@@ -8,7 +8,7 @@ from game_objects import Images, Texts
 
 # INIT
 
-screen, clock = config.init_screen()
+screen, clock, screen_h = config.init_screen()
 
 images = Images()
 texts = Texts()
@@ -234,8 +234,11 @@ def play():
 
 
 if __name__ == "__main__":
+    high_score = 0
     mode = 1
     while mode > 0:
-        resolution, mode = menu.menu(screen, clock, images)
+        resolution, mode = menu.menu(screen, clock, images, screen_h, high_score)
         if mode > 0:
             score = play()
+            if score > high_score:
+                high_score = score

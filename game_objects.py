@@ -138,8 +138,8 @@ class Menutexts():
         highscore_rect = highscore_surface.get_rect(center = (config.SCREEN_SIZE[0] / 2,  70 ) )
         screen.blit(highscore_surface, highscore_rect)
 
-    def draw_res(self, screen, res):
-        res_surface = self.menu_font.render('{} x {}'.format(config.SCREEN_SIZES[res][0], config.SCREEN_SIZES[res][1]), True, (225,225,225) )
+    def draw_res(self, screen, res, screen_h):
+        res_surface = self.menu_font.render('{} x {}'.format(config.SCREEN_SIZES[res][0], screen_h), True, (225,225,225) )
         res_rect = res_surface.get_rect(center = (config.SCREEN_SIZE[0] / 2,  config.SCREEN_SIZE[1] / 2 - 44 ) )
         screen.blit(res_surface, res_rect)
         return res_rect

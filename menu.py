@@ -2,7 +2,7 @@ import pygame
 from pygame import display, mouse
 import game_objects
 
-def menu(screen, clock, images, high_score = 0):
+def menu(screen, clock, images, screen_h, high_score = 0):
     res = 2
     mode = 1
     menu_text = game_objects.Menutexts()
@@ -14,7 +14,7 @@ def menu(screen, clock, images, high_score = 0):
 
         menu_text.draw_highscore(screen, high_score)
 
-        res_rect = menu_text.draw_res(screen, res)
+        res_rect = menu_text.draw_res(screen, res, screen_h)
         mode_rect = menu_text.draw_mode(screen, mode)
         exit_rect = menu_text.draw_exit(screen)
         start_rect = menu_text.draw_start(screen)
