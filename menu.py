@@ -14,7 +14,7 @@ def menu(screen, clock, images, config, screen_h, high_score = 0):
 
         menu_text.draw_highscore(screen, config, high_score)
 
-        res_rect = menu_text.draw_res(screen, config, res, screen_h)
+        res_rect = menu_text.draw_res(screen, config)
         # mode_rect = menu_text.draw_mode(screen, config, mode)
         exit_rect = menu_text.draw_exit(screen, config)
         start_rect = menu_text.draw_start(screen, config)

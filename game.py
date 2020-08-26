@@ -10,7 +10,7 @@ from game_objects import Images, Texts
 
 # Load config
 config = Config()
-screen, screen_h = init_screen(config)
+screen = init_screen(config)
 clock = pygame.time.Clock()
 images = Images(config)
 texts = Texts(config)
@@ -238,7 +238,7 @@ if __name__ == "__main__":
     high_score = 0
     mode = 1
     while mode > 0:
-        resolution, mode = menu.menu(screen, clock, images, config, screen_h, high_score)
+        resolution, mode = menu.menu(screen, clock, images, config, high_score)
         if mode > 0:
             score = play()
             if score > high_score:
