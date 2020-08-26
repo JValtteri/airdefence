@@ -8,7 +8,7 @@ class Config():
 
         # self.SCREEN_SIZES = ((600, 480),  (1024, 700),    (1024,1024),    (2048, 1340) )
         # self.ASSET_SIZES = ( (24, 24),    (32, 32),       (64, 64),       (86, 86) )
-        self.SCREEN_SIZE = (1024,1024)      # monitor_info.current_h-60
+        self.SCREEN_SIZE = [1024,1024]      # monitor_info.current_h-60
         self.ASSET_SIZE = (64, 64)
         self.BACKGROUND = 'assets/bg.png'
         self.CROSHAIR = 'assets/croshair.png'
@@ -27,6 +27,8 @@ class Config():
 def init_screen(config):
     pygame.init()
     monitor_info = pygame.display.Info()
+    if monitor_info.current_h < 1024:
+        config.SCREEN_SIZE[1] = monitor_info.current_h
     screen = pygame.display.set_mode((config.SCREEN_SIZE))#, pygame.FULLSCREEN)
     pygame.display.set_caption('Air defence')
 
