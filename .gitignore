@@ -2,5 +2,5 @@ __*
 *.code*
 *.vscode
 build/*
-*.spec
+# *.spec
 high_score
