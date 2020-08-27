@@ -97,6 +97,17 @@ class Images():
         self.ship_img = transform.scale2x(self.ship_img)
         self.ship_img.set_colorkey((63,72,204))
 
+        ### Highlite
+        self.highlite_img = image.load(config.HIGHLITE).convert()
+        self.highlite_img.set_colorkey((163,73,164))
+        # self.highlite_img.set_alpha(95)
+
+    def draw_highlite(self, screen, position):
+        # self.highlite_img = transform.scale(self.highlite_img, config.SCREEN_SIZE)
+        highlite_rect = self.highlite_img.get_rect(center = (position) )
+        screen.blit(self.highlite_img, highlite_rect)
+        return highlite_rect
+
 
 class Texts():
 
@@ -159,7 +170,3 @@ class Menutexts():
         start_rect = start_surface.get_rect(center = (config.SCREEN_SIZE[0] / 2, config.SCREEN_SIZE[1] - 70 ) )
         screen.blit(start_surface, start_rect)
         return start_rect
-
-
-
-

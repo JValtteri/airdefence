@@ -16,6 +16,7 @@ class Config():
         self.MISSILE = 'assets/missile.png'
         self.SPLASH = 'assets/splash.png'
         self.SHIP = 'assets/ship.png'
+        self.HIGHLITE = 'assets/highlite.png'
         self.HIGH_SCORE = 0
         self.SHIP_LOCALE = ( self.SCREEN_SIZE[0] / 2, self.SCREEN_SIZE[1] - 100 )
         self.GAME_FONT = None
