@@ -2,9 +2,7 @@
 
 An addictive, arcade-like, 2D air defence game, made with *Python3* and *Pygame*
 
-### **BETA** v0.6 ###
-
-![Build exe for Windows](https://github.com/JValtteri/airdefence/workflows/Build%20exe%20for%20Windows/badge.svg)
+### **BETA** v0.7 ###
 
 ## How to play ##
 
@@ -30,6 +28,9 @@ The *highest* score of *the session* is displayed at the top of the *main menu*.
 | Stop   | Enter / Space-Bar / Esc |
 | Exit   | Esc                     |
 
+### Menu ###
+
+In *Main Menu*, you can enter Full Screen mode by clicking on the game resolution.
 
 ## Install and Run ##
 
@@ -58,3 +59,10 @@ left behind. A new folder is created each time, the new never effecting the old.
 - more refactoring...
 - ~~implement different resolutions~~ (basic scaling implemented)
 
+### CI ###
+
+![Build exe for Windows](https://github.com/JValtteri/airdefence/workflows/Build%20exe%20for%20Windows/badge.svg)
+
+CI does not work. EXE Must be built manually. 
+- Batch files for making a fresh *virtual enviroment*: ```setup_venv.bat``` and
+- building an exe ```build_exe.bat``` are supplied for you.
