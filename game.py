@@ -185,7 +185,7 @@ def play():
 
             if event.type == SPAWNBOGEY:
                 bogeys.append( spawn_bogey(
-                                        random.randrange(SCREEN_SIZE[0]-64),
+                                        random.randrange(32, SCREEN_SIZE[0]-32),
                                         random.randrange(5, 15)
                                         ))
 
