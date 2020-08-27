@@ -36,5 +36,13 @@ def init_screen(config):
         config.update_screen_size(monitor_info.current_h - 70)
     screen = pygame.display.set_mode((config.SCREEN_SIZE))#, pygame.FULLSCREEN)
     pygame.display.set_caption('Air defence')
+    return screen
 
+def full_screen(config):
+    pygame.init()
+    monitor_info = pygame.display.Info()
+    if monitor_info.current_h < 2024:
+        print(monitor_info.current_h)                       # DEBUG
+        config.update_screen_size(monitor_info.current_h)
+    screen = pygame.display.set_mode((config.SCREEN_SIZE ), pygame.FULLSCREEN)#, pygame.FULLSCREEN)
     return screen

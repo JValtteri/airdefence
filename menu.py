@@ -1,6 +1,7 @@
 import pygame
 from pygame import display, mouse
 import game_objects
+from config import full_screen
 
 def menu(screen, clock, images, config, high_score = 0):
     res = 2
@@ -70,7 +71,8 @@ def menu(screen, clock, images, config, high_score = 0):
                     mode = 0
 
                 elif res_rect.collidepoint((mouse_x, mouse_y)):
-                    print("clicked res")                        # Placeholder for changing rendering resolution or type
+                    screen = full_screen(config)
+                    # print("clicked res")                        # Placeholder for changing rendering resolution or type
 
 
         display.update()
