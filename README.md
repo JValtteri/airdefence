@@ -4,6 +4,8 @@ An addictive, arcade-like, 2D air defence game, made with *Python3* and *Pygame*
 
 ### **BETA** v0.5 ###
 
+![Build exe for Windows](https://github.com/JValtteri/airdefence/workflows/Build%20exe%20for%20Windows/badge.svg)
+
 ## How to play ##
 
 **Shoot down incoming enemy aircraft, by launching missiles with your mouse.**
