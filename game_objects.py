@@ -1,6 +1,4 @@
 import math
-from pygame import image, transform
-# import config
 
 class Object():
 
@@ -20,7 +18,7 @@ class Object():
         self.time = None
         self.expire = expire
 
-        self.u_vector(v, vect)
+        self.u_vector(vect)
 
     def pos(self, x, y):
         self.rect.centerx = x
@@ -43,7 +41,7 @@ class Object():
     def speed(self, v = 0):
         self.v = v
 
-    def u_vector(self, v, vect):
+    def u_vector(self, vect):
         x = vect[0]
         y = vect[1]
         l = math.sqrt( x**2 + y**2 )
@@ -63,7 +61,6 @@ class Object():
             if self.time > 0:
                 self.time -= 1
 
-
     def show(self, time=None):
         self.time = time
         self.visible = True
@@ -78,6 +75,7 @@ class Object():
 class Images():
 
     def __init__(self, config):
+        from pygame import image, transform
 
         # IMAGES
         self.background_img = image.load(config.BACKGROUND).convert()

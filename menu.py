@@ -15,7 +15,7 @@ def menu(screen, clock, images, config, high_score = 0):
         menu_text.draw_highscore(screen, config, high_score)
 
         res_rect = menu_text.draw_res(screen, config)
-        # mode_rect = menu_text.draw_mode(screen, config, mode)
+        # mode_rect = menu_text.draw_mode(screen, config, mode)     # Placeholder for different gamemodes, like accelerating wave
         exit_rect = menu_text.draw_exit(screen, config)
         start_rect = menu_text.draw_start(screen, config)
 
@@ -58,7 +58,7 @@ def menu(screen, clock, images, config, high_score = 0):
                     mode = 0
 
                 elif res_rect.collidepoint((mouse_x, mouse_y)):
-                    print("clicked res")
+                    print("clicked res")                        # Placeholder for changing rendering resolution or type
 
         display.update()
         clock.tick(15)
