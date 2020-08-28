@@ -2,7 +2,7 @@
 
 An addictive, arcade-like, 2D air defence game, made with *Python3* and *Pygame*
 
-### **BETA** v0.7 ###
+### v0.8 ###
 
 ## How to play ##
 
@@ -54,9 +54,9 @@ left behind. A new folder is created each time, the new never effecting the old.
 **To free the space, you need to delete the folder manually.**
 
 ## TO-DO ##
-- highlite selection
 - turn the missiles along their launch vector
-- more refactoring...
+- ~~more refactoring...~~
+- ~~highlite selection~~
 - ~~implement different resolutions~~ (basic scaling implemented)
 
 ### CI ###
@@ -66,8 +66,3 @@ left behind. A new folder is created each time, the new never effecting the old.
 CI does not work. EXE Must be built manually.
 - Batch files for making a fresh *virtual enviroment*: ```setup_venv.bat``` and
 - building an exe ```build_exe.bat``` are supplied for you.
-
-### BATCH FILES DO NOT WORK ###
-**RUN THE COMMANDS IN THE BATCH FILES MANUALLY**
-
-The problem is thath batch files stop when starting the venv.
