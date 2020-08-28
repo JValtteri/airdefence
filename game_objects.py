@@ -154,7 +154,7 @@ class Texts():
 
     def score_display(self, screen, config, score):
         score_surface = self.game_font.render('Score: {}'.format(score), True, (225,225,225) )
-        score_rect = score_surface.get_rect(center = (config.SCREEN_SIZE[0] / 2 + 200, config.SCREEN_SIZE[1] - 70 ) )
+        score_rect = score_surface.get_rect(center = (config.SCREEN_SIZE[0] / 2, 70 ) )
         screen.blit(score_surface, score_rect)
 
     # def debug_display(self, screen, config, missiles, bogeys):
@@ -164,7 +164,7 @@ class Texts():
 
     def missed_display(self, screen, config, missed):
         missed_surface = self.game_font.render('Missed: {}'.format(missed), True, (225,225,225) )
-        missed_rect = missed_surface.get_rect(center = (config.SCREEN_SIZE[0] / 2,  70 ) )
+        missed_rect = missed_surface.get_rect(center = (config.SCREEN_SIZE[0] / 2 + 200,  config.SCREEN_SIZE[1] - 70 ) )
         screen.blit(missed_surface, missed_rect)
 
     def gameover_display(self, screen, config, score):
