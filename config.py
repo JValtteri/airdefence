@@ -21,9 +21,12 @@ class Config():
         self.SHIP_LOCALE = ( self.SCREEN_SIZE[0] / 2, self.SCREEN_SIZE[1] - 100 )
         self.GAME_FONT = None
 
-    def get_fonts(self):
-        self.GAME_FONT = pygame.font.Font(Config.FONT, 40)
-        return self.GAME_FONT
+    def get_fonts(self, index=0):
+        if index == 0:
+            afont = pygame.font.Font(Config.FONT, 40)
+        elif index == 1:
+            afont = pygame.font.Font(Config.FONT, 20)
+        return afont
 
     def update_screen_size(self, new_screen_y):
         self.SCREEN_SIZE[1] = new_screen_y
@@ -35,7 +38,7 @@ def init_screen(config):
     if monitor_info.current_h < 2024:
         config.update_screen_size(monitor_info.current_h - 70)
     screen = pygame.display.set_mode((config.SCREEN_SIZE))#, pygame.FULLSCREEN)
-    pygame.display.set_caption('Air defence')
+    pygame.display.set_caption('Air Defence')
     return screen
 
 def full_screen(config):

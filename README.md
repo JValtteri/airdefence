@@ -2,7 +2,7 @@
 
 An addictive, arcade-like, 2D air defence game, made with *Python3* and *Pygame*
 
-### v0.8 ###
+### v1.0 ###
 
 ## How to play ##
 
@@ -52,12 +52,6 @@ Requrements:
 a temporary folder (approx. 20 MB in size) created in to ```[User]\AppData\Local\Temp\_MEIxxxxx``` would be
 left behind. A new folder is created each time, the new never effecting the old.
 **To free the space, you need to delete the folder manually.**
-
-## TO-DO ##
-- turn the missiles along their launch vector
-- ~~more refactoring...~~
-- ~~highlite selection~~
-- ~~implement different resolutions~~ (basic scaling implemented)
 
 ### CI ###
 
