@@ -133,27 +133,31 @@ def play():
         texts.score_display(screen, config, score)
         texts.debug_display(screen, config, missiles, bogeys)
 
+        # Draw Bogeys
         for bogey in bogeys:
             bogey.move_y()
             bogey.draw(screen)
+            # Check if Bogey is leaving the screen
             if bogey.rect.centery > SCREEN_SIZE[1]:
                 missed += 1
                 bogey.show(0)
 
+        # Draw Missiles
         for missile in missiles:
             missile.move_2d()
             missile.draw(screen)
 
-        # EVENTS
-        current_events = pygame.event.get()
+        # Check collisions
         hits = check_collision(bogeys, missiles)
         score += hits
 
-        # If enough bogeys arent shot down
+        # If enough bogeys aren't shot down
         # end the game
         if missed >= lives:
             running = False
 
+        # EVENTS
+        current_events = pygame.event.get()
         for event in current_events:
 
             # KEYBOARD
@@ -181,8 +185,8 @@ def play():
                     croshair.pos(mouse_x, mouse_y)
                     croshair.show(25)
 
-            # TIMED EVENTS
 
+            # TIMED EVENTS
             if event.type == SPAWNBOGEY:
                 bogeys.append( spawn_bogey(
                                         random.randrange(32, SCREEN_SIZE[0]-32),
@@ -195,18 +199,15 @@ def play():
         display.update()
         clock.tick(25)
 
-    ####
-    #
-    # SHOW post_game
-    #
-    ####
+
+    # SHOW POST_GAME
+
 
     post_game = True
 
     while post_game:
 
         # screen.blit( background_img, (0,0) )
-
         texts.clip_display(screen, config, clip)
         texts.score_display(screen, config, score)
         texts.debug_display(screen, config, missiles, bogeys)
