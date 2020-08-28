@@ -119,7 +119,8 @@ def play():
         croshair.draw(screen)
         texts.clip_display(screen, config, clip)
         texts.score_display(screen, config, score)
-        texts.debug_display(screen, config, missiles, bogeys)
+        texts.missed_display(screen, config, missed)
+        # texts.debug_display(screen, config, missiles, bogeys)
 
         # Draw Bogeys
         for bogey in bogeys:
@@ -195,11 +196,12 @@ def play():
 
     while post_game:
 
-        # screen.blit( background_img, (0,0) )
+        screen.blit( images.background_img, (0,0) )
         texts.clip_display(screen, config, clip)
         texts.score_display(screen, config, score)
-        texts.debug_display(screen, config, missiles, bogeys)
-        texts.gameover_display(screen, config, score)
+        # texts.debug_display(screen, config, missiles, bogeys)
+        texts.missed_display(screen, config, missed)
+        gameover_rect = texts.gameover_display(screen, config, score)
 
         current_events = pygame.event.get()
         for event in current_events:
@@ -209,8 +211,10 @@ def play():
 
                 post_game = False
 
-            # if event.type == pygame.MOUSEBUTTONDOWN:
-            #     post_game = False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_x, mouse_y = mouse.get_pos()
+                if gameover_rect.collidepoint((mouse_x, mouse_y)):
+                    post_game = False
 
             # APP CLOSE
             if event.type == pygame.QUIT:
@@ -218,7 +222,7 @@ def play():
 
 
         display.update()
-        clock.tick(5)
+        clock.tick(15)
 
     return score
 

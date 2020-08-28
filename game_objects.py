@@ -157,17 +157,23 @@ class Texts():
         score_rect = score_surface.get_rect(center = (config.SCREEN_SIZE[0] / 2 + 200, config.SCREEN_SIZE[1] - 70 ) )
         screen.blit(score_surface, score_rect)
 
-    def debug_display(self, screen, config, missiles, bogeys):
-        score_surface = self.game_font.render('M: {} B:{}'.format( len(missiles), len(bogeys) ), True, (225,225,225) )
-        score_rect = score_surface.get_rect(center = (config.SCREEN_SIZE[0] / 2,  70 ) )
-        screen.blit(score_surface, score_rect)
+    # def debug_display(self, screen, config, missiles, bogeys):
+    #     score_surface = self.game_font.render('M: {} B:{}'.format( len(missiles), len(bogeys) ), True, (225,225,225) )
+    #     score_rect = score_surface.get_rect(center = (config.SCREEN_SIZE[0] / 2,  70 ) )
+    #     screen.blit(score_surface, score_rect)
+
+    def missed_display(self, screen, config, missed):
+        missed_surface = self.game_font.render('Missed: {}'.format(missed), True, (225,225,225) )
+        missed_rect = missed_surface.get_rect(center = (config.SCREEN_SIZE[0] / 2,  70 ) )
+        screen.blit(missed_surface, missed_rect)
 
     def gameover_display(self, screen, config, score):
-        lines = ['GAME OVER', 'Score: {}'.format(score)]
+        lines = ['Score: {}'.format(score), 'GAME OVER']
         for i in range(len(lines)):
             gameover_surface = self.game_font.render(lines[i], True, (225,225,225) )
-            gameover_rect = gameover_surface.get_rect(center = (config.SCREEN_SIZE[0] / 2,  config.SCREEN_SIZE[1] / 2 + 44 * i ) )
+            gameover_rect = gameover_surface.get_rect(center = (config.SCREEN_SIZE[0] / 2,  config.SCREEN_SIZE[1] / 2 + 44 - 44 * i ) )
             screen.blit(gameover_surface, gameover_rect)
+        return gameover_rect
 
 
 class Menutexts():
@@ -181,7 +187,7 @@ class Menutexts():
         screen.blit(highscore_surface, highscore_rect)
 
     def draw_res(self, screen, config):
-        res_surface = self.menu_font.render('{} x {}'.format(config.SCREEN_SIZE[0], config.SCREEN_SIZE[1]), True, (225,225,225) )
+        res_surface = self.menu_font.render('Fullscreen', True, (225,225,225) )
         res_rect = res_surface.get_rect(center = (config.SCREEN_SIZE[0] / 2,  config.SCREEN_SIZE[1] / 2 - 44 ) )
         screen.blit(res_surface, res_rect)
         return res_rect
