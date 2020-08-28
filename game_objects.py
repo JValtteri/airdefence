@@ -1,4 +1,5 @@
 import math
+import pygame
 
 class Object():
     """
@@ -104,6 +105,11 @@ class Object():
         '''
         return self.expire == True and self.time == 0
 
+    def rotate(self, vect):
+        """returns a surface rotated along vect"""
+        angle = math.degrees( math.atan(vect[0]/vect[1]) )
+        self.image = pygame.transform.rotate(self.image, angle)
+
 
 class Images():
 
@@ -146,6 +152,7 @@ class Texts():
 
     def __init__(self, config):
         self.game_font = config.get_fonts()
+        self.credit_font = config.get_fonts(1)
 
     def clip_display(self, screen, config, clip):
         score_surface = self.game_font.render('Missiles: {}'.format(clip), True, (225,225,225) )
@@ -180,6 +187,7 @@ class Menutexts():
 
     def __init__(self, config):
         self.menu_font = config.get_fonts()
+        self.credit_font = config.get_fonts(1)
 
     def draw_highscore(self, screen, config, highs_core):
         highscore_surface = self.menu_font.render('Highscore: {}'.format(highs_core), True, (225,225,225) )
@@ -209,6 +217,12 @@ class Menutexts():
         start_rect = start_surface.get_rect(center = (config.SCREEN_SIZE[0] / 2, config.SCREEN_SIZE[1] - 70 ) )
         screen.blit(start_surface, start_rect)
         return start_rect
+
+    def draw_credits(self, screen, config):
+        credit_surface = self.credit_font.render("""JValtteri - 2020""", True, (205,205,205) )
+        credit_rect = credit_surface.get_rect(bottomleft = (30, config.SCREEN_SIZE[1] - 30 ) )
+        screen.blit(credit_surface, credit_rect)
+        return credit_rect
 
 def vector(end, start=(0, 0) ):
     """

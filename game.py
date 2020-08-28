@@ -65,6 +65,7 @@ def spawn_missile(vect, v=20):
                      y = SHIP_LOCALE[1],
                      v = v,
                      vect = vect)
+    missile.rotate(vect)
     missile.show(300)
     return missile
 

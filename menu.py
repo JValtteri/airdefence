@@ -2,6 +2,7 @@ import pygame
 from pygame import display, mouse
 import game_objects
 from config import full_screen
+import webbrowser
 
 def menu(screen, clock, images, config, high_score = 0):
     res = 2
@@ -14,6 +15,7 @@ def menu(screen, clock, images, config, high_score = 0):
         screen.blit( images.background_img, (0,0) )
 
         menu_text.draw_highscore(screen, config, high_score)
+        credit_rect = menu_text.draw_credits(screen, config)
         res_rect = menu_text.draw_res(screen, config)
         # mode_rect = menu_text.draw_mode(screen, config, mode)     # Placeholder for different gamemodes, like accelerating wave
         exit_rect = menu_text.draw_exit(screen, config)
@@ -32,6 +34,10 @@ def menu(screen, clock, images, config, high_score = 0):
         elif res_rect.collidepoint((mouse_x, mouse_y)):
             images.draw_highlite(screen, (res_rect.midbottom))
             res_rect = menu_text.draw_res(screen, config)
+
+        elif credit_rect.collidepoint((mouse_x, mouse_y)):
+            images.draw_highlite(screen, (credit_rect.midbottom))
+            menu_text.draw_credits(screen, config)
 
         # EVENTS
         current_events = pygame.event.get()
@@ -58,8 +64,6 @@ def menu(screen, clock, images, config, high_score = 0):
                 in_menu = False
                 mode = 0
 
-            # MOUSE HOVER
-
             # MOUSE CLICK
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_x, mouse_y = mouse.get_pos()
@@ -73,6 +77,9 @@ def menu(screen, clock, images, config, high_score = 0):
 
                 elif res_rect.collidepoint((mouse_x, mouse_y)):
                     screen = full_screen(config)
+
+                elif credit_rect.collidepoint((mouse_x, mouse_y)):
+                    webbrowser.open('https://github.com/JValtteri/airdefence')
 
 
         display.update()
