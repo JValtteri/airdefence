@@ -21,26 +21,9 @@ SCREEN_SIZE = config.SCREEN_SIZE
 ASSET_SIZE = config.ASSET_SIZE
 SHIP_LOCALE = config.SHIP_LOCALE
 
-
 # FUNCTIONS
 
-def vector(end, start=(0, 0) ):
-    delta_x = end[0] - start[0]
-    delta_y = end[1] - start[1]
-
-    return (delta_x, delta_y)
-
-
-def splash_it(missile, bogey):
-    missile.splash(images.splash_img)
-    missile.speed(0)
-    missile.show(20)
-    missile.expire = True
-
-    bogey.speed(0)
-    bogey.show(5)
-    bogey.expire = True
-
+vector = game_objects.vector            # make vector function local
 
 def check_collision(bogeys, missiles):
     hits = 0
@@ -51,16 +34,21 @@ def check_collision(bogeys, missiles):
                 hits += 1
     return hits
 
+def splash_it(missile, bogey):
+    missile.splash(images.splash_img)   # Change missile image to "images.splash_img"
+    missile.speed(0)        # Stop the missile
+    missile.show(20)        # hide missile for after 20 frames
+    missile.expire = True   # remove missile after it is hidden
 
-def is_garbage(item):
-    return item.expire == True and item.time == 0
+    bogey.speed(0)          # stop bogey
+    bogey.show(5)           # hide missile for after 20 frames
+    bogey.expire = True     # remove missile after it is hidden
 
 
 def refill_clip(clip):
     if clip < 4:
         clip += 1
     return clip
-
 
 # SPAWNERS
 
@@ -121,8 +109,8 @@ def play():
         #
         # deletes objects that have expired:
         # whose time has run out and expiration is enabled
-        missiles = [missile for missile in missiles if not is_garbage(missile)]
-        bogeys = [bogey for bogey in bogeys if not is_garbage(bogey)]
+        missiles = [missile for missile in missiles if not missile.is_garbage()]
+        bogeys = [bogey for bogey in bogeys if not bogey.is_garbage()]
 
 
         # DRAWING

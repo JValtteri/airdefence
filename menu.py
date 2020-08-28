@@ -19,6 +19,7 @@ def menu(screen, clock, images, config, high_score = 0):
         exit_rect = menu_text.draw_exit(screen, config)
         start_rect = menu_text.draw_start(screen, config)
 
+        # HIGHLITE MOUSEOVER MENU ITEMS
         mouse_x, mouse_y = mouse.get_pos()
         if start_rect.collidepoint((mouse_x, mouse_y)):
             images.draw_highlite(screen, (start_rect.midbottom) )

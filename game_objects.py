@@ -1,6 +1,9 @@
 import math
 
 class Object():
+    """
+    class to track and manipulate rendered entities.
+    """
 
     def __init__(self, image,
                  x = 0,
@@ -21,27 +24,41 @@ class Object():
         self.u_vector(vect)
 
     def pos(self, x, y):
+        """set entity center to position (x, y)"""
         self.rect.centerx = x
         self.rect.centery = y
 
     def move_x(self, delta = None):
+        """
+        move entity in x-axis at predefined speed.
+        Speed can be overriden with [delta]"""
         if delta == None:
             delta = self.v
         self.rect.centerx += delta
 
     def move_y(self, delta = None):
+        """
+        move entity in y-axis at predefined speed.
+        Speed can be overriden with [delta]"""
         if delta == None:
             delta = self.v
         self.rect.centery += delta
 
     def move_2d(self):
+        """updates the entity location according to
+        its pre-defined speed and direction"""
         self.move_x(self.v * self.u_vect[0])
         self.move_y(self.v * self.u_vect[1])
 
     def speed(self, v = 0):
+        """set entity speed"""
         self.v = v
 
     def u_vector(self, vect):
+        """
+        Updates the entity unit vector.
+        Used to calculate entity speed in
+        (x, y) plane: d(x, y) = u_vect(x,y) * v"""
         x = vect[0]
         y = vect[1]
         l = math.sqrt( x**2 + y**2 )
@@ -53,23 +70,39 @@ class Object():
             vy = y / l
         except ZeroDivisionError:
             vy = 0
+
         self.u_vect = (vx, vy)
+        return (vx, vy)
 
     def draw(self, screen):
+        """render entities that are set to visible"""
         if self.visible == True and self.time is not 0:
             screen.blit(self.image,(self.rect))
             if self.time > 0:
                 self.time -= 1
 
     def show(self, time=None):
+        """
+        set entity visibile for [time] frames.
+        time: 0 = hide, -1 = does not expire, 0 != show
+        """
         self.time = time
         self.visible = True
 
     def hide(self):
+        """make entity invisible"""
         self.visible = False
 
     def splash(self, splash):
+        """Changes entity graphic to [splash]"""
         self.image = splash
+
+    def is_garbage(self):
+        '''
+        use:
+        list_of_objects = [[object] for [object] in [objects] if not [object].is_garbage()]
+        '''
+        return self.expire == True and self.time == 0
 
 
 class Images():
@@ -170,3 +203,13 @@ class Menutexts():
         start_rect = start_surface.get_rect(center = (config.SCREEN_SIZE[0] / 2, config.SCREEN_SIZE[1] - 70 ) )
         screen.blit(start_surface, start_rect)
         return start_rect
+
+def vector(end, start=(0, 0) ):
+    """
+    get a vector between from [start] to [end].
+    If ommited, [start] == (0,0)
+    """
+    delta_x = end[0] - start[0]
+    delta_y = end[1] - start[1]
+
+    return (delta_x, delta_y)
