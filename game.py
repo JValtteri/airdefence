@@ -70,6 +70,11 @@ def spawn_missile(vect, v):
     return missile
 
 
+def random_speed(min, max):
+    speed = random.randrange(round(min*1000), round(max*1000))
+    return speed/1000
+
+
 def play():
 
     # OBJECTS
@@ -86,6 +91,11 @@ def play():
                 y = SHIP_LOCALE[1],
                 expire = False
                 )
+
+    missile_speed = 20 * 25 / fps
+    min_bogey_speed = 5*25/fps
+    max_bogey_speed = 15*25/fps
+    show_target = 20 * fps/25
 
     # ship_rect = config.ship_img.get_rect(center = (SHIP_LOCALE))
     ship.show(-1)
@@ -170,17 +180,17 @@ def play():
 
                     mouse_x, mouse_y = mouse.get_pos()
                     vect = vector( (mouse_x,mouse_y), SHIP_LOCALE )
-                    missiles.append( spawn_missile(vect, 20*25/fps) )
+                    missiles.append( spawn_missile(vect, missile_speed) )
 
                     croshair.pos(mouse_x, mouse_y)
-                    croshair.show(20 * fps/25)
+                    croshair.show(show_target)
 
 
             # TIMED EVENTS
             if event.type == SPAWNBOGEY:
                 bogeys.append( spawn_bogey(
                                         random.randrange(32, SCREEN_SIZE[0]-32),
-                                        random.randrange(round(5*25/fps), round(15*25/fps))
+                                        random_speed(min_bogey_speed, max_bogey_speed)
                                         ))
 
             if event.type == REFILL:
