@@ -113,7 +113,12 @@ class Object():
 
     def rotate(self, vect):
         """returns a surface rotated along vect"""
-        angle = math.degrees( math.atan(vect[0]/vect[1]) )
+        if vect[1] < 0:
+            angle = math.degrees( math.atan(vect[0]/vect[1]) )
+        elif vect[1] > 0:
+            angle = math.degrees( math.atan(vect[0]/vect[1]) ) + 180
+        else:
+            angle = (vect[0] > 0) * 270 + (vect[0] < 0) * 90
         self.image = pygame.transform.rotate(self.image, angle)
 
 
