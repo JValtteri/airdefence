@@ -206,9 +206,15 @@ class Menutexts():
         screen.blit(res_surface, res_rect)
         return res_rect
 
+    def draw_fps(self, screen, config, fps):
+        fps_surface = self.menu_font.render('{} Hz'.format(fps), True, (225,225,225) )
+        fps_rect = fps_surface.get_rect(center = (config.SCREEN_SIZE[0] / 2,  config.SCREEN_SIZE[1] / 2 + 44 ) )
+        screen.blit(fps_surface, fps_rect)
+        return fps_rect
+
     def draw_mode(self, screen, config, mode):
         mode_surface = self.menu_font.render('{}'.format(mode), True, (225,225,225) )
-        mode_rect = mode_surface.get_rect(center = (config.SCREEN_SIZE[0] / 2,  config.SCREEN_SIZE[1] / 2 + 44 ) )
+        mode_rect = mode_surface.get_rect(center = (config.SCREEN_SIZE[0] / 2,  config.SCREEN_SIZE[1] / 2 + 88 ) )
         screen.blit(mode_surface, mode_rect)
         return mode_rect
 
