@@ -54,11 +54,11 @@ def refill_clip(clip):
 
 def spawn_bogey(x, v=10):
     bogey = game_objects.Object(images.bogey_img, x, v=v)
-    bogey.show(375)
+    bogey.show(1875)
     return bogey
 
 
-def spawn_missile(vect, v=20):
+def spawn_missile(vect, v=4):
     missile = game_objects.Object(
                      image = images.missile_img,
                      x = SHIP_LOCALE[0],
@@ -173,21 +173,21 @@ def play():
                     missiles.append( spawn_missile(vect) )
 
                     croshair.pos(mouse_x, mouse_y)
-                    croshair.show(25)
+                    croshair.show(100)
 
 
             # TIMED EVENTS
             if event.type == SPAWNBOGEY:
                 bogeys.append( spawn_bogey(
                                         random.randrange(32, SCREEN_SIZE[0]-32),
-                                        random.randrange(5, 15)
+                                        random.randrange(1, 3)
                                         ))
 
             if event.type == REFILL:
                 clip = refill_clip(clip)
 
         display.update()
-        clock.tick(25)
+        clock.tick(120)
 
 
     # SHOW POST_GAME
@@ -223,7 +223,7 @@ def play():
 
 
         display.update()
-        clock.tick(15)
+        clock.tick(30)
 
     return score
 

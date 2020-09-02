@@ -47,5 +47,5 @@ def full_screen(config):
     if monitor_info.current_h < 2024:
         print(monitor_info.current_h)                       # DEBUG
         config.update_screen_size(monitor_info.current_h)
-    screen = pygame.display.set_mode((config.SCREEN_SIZE ), pygame.FULLSCREEN)#, pygame.FULLSCREEN)
+    screen = pygame.display.set_mode((config.SCREEN_SIZE ), pygame.FULLSCREEN | pygame.DOUBLEBUF | pygame.HWSURFACE)#, pygame.FULLSCREEN)
     return screen
