@@ -2,7 +2,7 @@
 
 An addictive, arcade-like, 2D air defence game, made with *Python3* and *Pygame*
 
-### v1.0 ###
+### v1.1 ###
 
 ## How to play ##
 
