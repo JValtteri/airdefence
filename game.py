@@ -52,13 +52,13 @@ def refill_clip(clip):
 
 # SPAWNERS
 
-def spawn_bogey(x, v=10):
+def spawn_bogey(x, v):
     bogey = game_objects.Object(images.bogey_img, x, v=v)
-    bogey.show(375)
+    bogey.show(1875)
     return bogey
 
 
-def spawn_missile(vect, v=20):
+def spawn_missile(vect, v):
     missile = game_objects.Object(
                      image = images.missile_img,
                      x = SHIP_LOCALE[0],
@@ -68,6 +68,11 @@ def spawn_missile(vect, v=20):
     missile.rotate(vect)
     missile.show(300)
     return missile
+
+
+def random_speed(min, max):
+    speed = random.randrange(round(min*1000), round(max*1000))
+    return speed/1000
 
 
 def play():
@@ -86,6 +91,11 @@ def play():
                 y = SHIP_LOCALE[1],
                 expire = False
                 )
+
+    missile_speed = 20 * 25 / fps
+    min_bogey_speed = 5*25/fps
+    max_bogey_speed = 15*25/fps
+    show_target = 20 * fps/25
 
     # ship_rect = config.ship_img.get_rect(center = (SHIP_LOCALE))
     ship.show(-1)
@@ -170,24 +180,24 @@ def play():
 
                     mouse_x, mouse_y = mouse.get_pos()
                     vect = vector( (mouse_x,mouse_y), SHIP_LOCALE )
-                    missiles.append( spawn_missile(vect) )
+                    missiles.append( spawn_missile(vect, missile_speed) )
 
                     croshair.pos(mouse_x, mouse_y)
-                    croshair.show(25)
+                    croshair.show(show_target)
 
 
             # TIMED EVENTS
             if event.type == SPAWNBOGEY:
                 bogeys.append( spawn_bogey(
                                         random.randrange(32, SCREEN_SIZE[0]-32),
-                                        random.randrange(5, 15)
+                                        random_speed(min_bogey_speed, max_bogey_speed)
                                         ))
 
             if event.type == REFILL:
                 clip = refill_clip(clip)
 
         display.update()
-        clock.tick(25)
+        clock.tick(fps)
 
 
     # SHOW POST_GAME
@@ -223,7 +233,7 @@ def play():
 
 
         display.update()
-        clock.tick(15)
+        clock.tick(25)
 
     return score
 
@@ -231,8 +241,9 @@ def play():
 if __name__ == "__main__":
     high_score = 0
     mode = 1
+    fps = config.FPS_MODES[0]
     while mode > 0:
-        resolution, mode = menu.menu(screen, clock, images, config, high_score)
+        fps, mode = menu.menu(screen, clock, images, config, fps, high_score)
         if mode > 0:
             score = play()
             if score > high_score:

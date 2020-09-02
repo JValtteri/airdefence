@@ -10,6 +10,7 @@ class Config():
         # self.ASSET_SIZES = ( (24, 24),    (32, 32),       (64, 64),       (86, 86) )
         self.SCREEN_SIZE = [1024,1024]      # monitor_info.current_h-60
         self.ASSET_SIZE = (64, 64)
+        self.FPS_MODES = (25, 40, 50, 60, 120)
         self.BACKGROUND = 'assets/bg.png'
         self.CROSHAIR = 'assets/croshair.png'
         self.BOGEY = 'assets/plane-red.png'
@@ -47,5 +48,5 @@ def full_screen(config):
     if monitor_info.current_h < 2024:
         print(monitor_info.current_h)                       # DEBUG
         config.update_screen_size(monitor_info.current_h)
-    screen = pygame.display.set_mode((config.SCREEN_SIZE ), pygame.FULLSCREEN)#, pygame.FULLSCREEN)
+    screen = pygame.display.set_mode((config.SCREEN_SIZE ), pygame.FULLSCREEN | pygame.DOUBLEBUF | pygame.HWSURFACE)#, pygame.FULLSCREEN)
     return screen

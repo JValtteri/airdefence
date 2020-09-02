@@ -17,6 +17,8 @@ class Object():
         self.visible = visible
         self.image = image
         self.rect = image.get_rect(center = (x, y))
+        self.x = x
+        self.y = y
         self.v = v
         self.u_vect = 0
         self.time = None
@@ -26,6 +28,8 @@ class Object():
 
     def pos(self, x, y):
         """set entity center to position (x, y)"""
+        self.x = x
+        self.y = y
         self.rect.centerx = x
         self.rect.centery = y
 
@@ -35,7 +39,8 @@ class Object():
         Speed can be overriden with [delta]"""
         if delta == None:
             delta = self.v
-        self.rect.centerx += delta
+        self.x += delta
+        self.rect.centerx = self.x
 
     def move_y(self, delta = None):
         """
@@ -43,7 +48,8 @@ class Object():
         Speed can be overriden with [delta]"""
         if delta == None:
             delta = self.v
-        self.rect.centery += delta
+        self.y += delta
+        self.rect.centery = self.y
 
     def move_2d(self):
         """updates the entity location according to
@@ -200,9 +206,15 @@ class Menutexts():
         screen.blit(res_surface, res_rect)
         return res_rect
 
+    def draw_fps(self, screen, config, fps):
+        fps_surface = self.menu_font.render('{} Hz'.format(fps), True, (225,225,225) )
+        fps_rect = fps_surface.get_rect(center = (config.SCREEN_SIZE[0] / 2,  config.SCREEN_SIZE[1] / 2 + 44 ) )
+        screen.blit(fps_surface, fps_rect)
+        return fps_rect
+
     def draw_mode(self, screen, config, mode):
         mode_surface = self.menu_font.render('{}'.format(mode), True, (225,225,225) )
-        mode_rect = mode_surface.get_rect(center = (config.SCREEN_SIZE[0] / 2,  config.SCREEN_SIZE[1] / 2 + 44 ) )
+        mode_rect = mode_surface.get_rect(center = (config.SCREEN_SIZE[0] / 2,  config.SCREEN_SIZE[1] / 2 + 88 ) )
         screen.blit(mode_surface, mode_rect)
         return mode_rect
 
