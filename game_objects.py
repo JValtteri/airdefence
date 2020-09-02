@@ -17,6 +17,8 @@ class Object():
         self.visible = visible
         self.image = image
         self.rect = image.get_rect(center = (x, y))
+        self.x = x
+        self.y = y
         self.v = v
         self.u_vect = 0
         self.time = None
@@ -26,6 +28,8 @@ class Object():
 
     def pos(self, x, y):
         """set entity center to position (x, y)"""
+        self.x = x
+        self.y = y
         self.rect.centerx = x
         self.rect.centery = y
 
@@ -35,7 +39,8 @@ class Object():
         Speed can be overriden with [delta]"""
         if delta == None:
             delta = self.v
-        self.rect.centerx += delta
+        self.x += delta
+        self.rect.centerx = self.x
 
     def move_y(self, delta = None):
         """
@@ -43,7 +48,8 @@ class Object():
         Speed can be overriden with [delta]"""
         if delta == None:
             delta = self.v
-        self.rect.centery += delta
+        self.y += delta
+        self.rect.centery = self.y
 
     def move_2d(self):
         """updates the entity location according to
