@@ -232,7 +232,7 @@ if __name__ == "__main__":
     high_score = 0
     mode = 1
     while mode > 0:
-        resolution, mode = menu.menu(screen, clock, images, config, high_score)
+        fps, mode = menu.menu(screen, clock, images, config, high_score)
         if mode > 0:
             score = play()
             if score > high_score:

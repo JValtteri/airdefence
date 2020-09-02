@@ -5,7 +5,7 @@ from config import full_screen
 import webbrowser
 
 def menu(screen, clock, images, config, high_score = 0):
-    res = 2
+    fps = 120
     mode = 1
     menu_text = game_objects.Menutexts(config)
     in_menu = True
@@ -85,4 +85,4 @@ def menu(screen, clock, images, config, high_score = 0):
         display.update()
         clock.tick(25)
 
-    return res, mode
+    return fps, mode
