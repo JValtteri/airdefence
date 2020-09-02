@@ -4,8 +4,7 @@ import game_objects
 from config import full_screen
 import webbrowser
 
-def menu(screen, clock, images, config, high_score = 0):
-    fps = config.FPS_MODES[0]
+def menu(screen, clock, images, config, fps, high_score = 0):
     mode = 1
     menu_text = game_objects.Menutexts(config)
     in_menu = True

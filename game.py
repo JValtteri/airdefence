@@ -231,8 +231,9 @@ def play():
 if __name__ == "__main__":
     high_score = 0
     mode = 1
+    fps = config.FPS_MODES[0]
     while mode > 0:
-        fps, mode = menu.menu(screen, clock, images, config, high_score)
+        fps, mode = menu.menu(screen, clock, images, config, fps, high_score)
         if mode > 0:
             score = play()
             if score > high_score:
