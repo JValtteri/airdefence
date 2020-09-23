@@ -57,8 +57,6 @@ left behind. A new folder is created each time, the new never effecting the old.
 
 ### CI ###
 
-![Build exe for Windows](https://github.com/JValtteri/airdefence/workflows/Build%20exe%20for%20Windows/badge.svg)
-
 CI does not work. EXE Must be built manually.
 - Batch files for making a fresh *virtual enviroment*: ```setup_venv.bat``` and
 - building an exe ```build_exe.bat``` are supplied for you.
