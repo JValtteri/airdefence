@@ -4,6 +4,8 @@ An addictive, arcade-like, 2D air defence game, made with *Python3* and *Pygame*
 
 ### v1.1 ###
 
+![screenshot](/images/highscore.png)
+
 ## How to play ##
 
 **Shoot down incoming enemy aircraft, by launching missiles with your mouse.**
